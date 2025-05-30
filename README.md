@@ -1,72 +1,134 @@
-API RESTful Serverless con AWS Lambda y DynamoDB
-Nombre del estudiante: Ordoñez Kevin
-Fecha de entrega: 30/05/2025
+# API RESTful Serverless con AWS Lambda y DynamoDB
 
-Introducción
-Este proyecto implementa una API RESTful utilizando tecnologías serverless, específicamente AWS Lambda, DynamoDB y API Gateway, gestionadas mediante el Framework Serverless. El objetivo es crear un sistema eficiente y escalable para la gestión de registros personales, permitiendo operaciones CRUD (Crear, Leer, Actualizar, Eliminar) de manera sencilla y sin la necesidad de administrar servidores tradicionales.
+**Nombre del estudiante:** Ordoñez Kevin  
+**Fecha de entrega:** 30/05/2025
 
-Las tecnologías serverless son fundamentales en el desarrollo de aplicaciones distribuidas modernas, ya que permiten escalar automáticamente, reducir costos operativos y simplificar la gestión de la infraestructura, enfocando el esfuerzo en la lógica de negocio.
+---
 
-Requisitos del Proyecto
-Funcionalidades requeridas:
+##  Introducción
 
-Crear un registro personal (nombre, fecha de nacimiento, número de cédula, ciudad de nacimiento, país, sexo, tipo de sangre).
-Obtener todos los registros.
-Obtener un registro individual por ID.
-Actualizar un registro existente.
-Eliminar un registro.
-Herramientas y tecnologías utilizadas:
+Este proyecto implementa una **API RESTful** utilizando tecnologías **serverless**, específicamente **AWS Lambda**, **DynamoDB** y **API Gateway**, gestionadas mediante el **Serverless Framework**.
 
-AWS Lambda
-DynamoDB
-API Gateway
-Serverless Framework
-Node.js
-Implementación del Proyecto
-La estructura del proyecto está organizada de la siguiente manera:
+El propósito de esta aplicación es permitir la gestión de registros personales (crear, leer, actualizar y eliminar) de forma escalable, eficiente y sin la necesidad de gestionar servidores tradicionales.
 
-src/: Contiene los archivos de las funciones Lambda para cada operación CRUD:
+Las tecnologías serverless permiten una arquitectura distribuida moderna, con escalabilidad automática, reducción de costos operativos y una mayor concentración en la lógica de negocio en lugar de la infraestructura.
 
-agregarRegistro.js: Agrega un nuevo registro.
-obtenerRegistros.js: Obtiene todos los registros.
-obtenerRegistroIndividual.js: Obtiene un registro por ID.
-actualizarRegistro.js: Actualiza un registro existente.
-eliminarRegistro.js: Elimina un registro.
-index.html: Interfaz web para interactuar con la API.
+---
 
-serverless.yml: Configuración del Framework Serverless para desplegar las funciones y recursos en AWS.
+## Requisitos del Proyecto
 
-Operaciones CRUD implementadas
-Crear: Se utiliza una función Lambda para insertar un nuevo registro en DynamoDB.
-Leer: Dos funciones Lambda permiten obtener todos los registros o uno individual.
-Actualizar: Una función Lambda actualiza los datos de un registro existente.
-Eliminar: Una función Lambda elimina un registro por su ID.
-Capturas de pantalla
-Agrega aquí tus capturas de pantalla mostrando:
+### Funcionalidades requeridas
 
-El formulario web funcionando.
-Respuestas de la API en Postman o navegador.
-La consola de AWS Lambda o DynamoDB mostrando los registros.
-Instrucciones de Ejecución
-Requisitos previos
-Tener instalado Node.js y npm.
-Tener una cuenta de AWS y configurar credenciales.
-Instalar Serverless Framework globalmente:
-npm install -g serverless
+- Crear un registro personal (nombre, fecha de nacimiento, cédula, ciudad, país, sexo, tipo de sangre).
+- Obtener todos los registros.
+- Obtener un registro individual por ID.
+- Actualizar un registro existente.
+- Eliminar un registro por su ID.
 
-Pasos para ejecutar localmente y desplegar en AWS
-Clonar el repositorio y entrar a la carpeta del proyecto:
+### Herramientas y tecnologías utilizadas
 
-Instalar dependencias:
+- AWS Lambda  
+- Amazon DynamoDB  
+- API Gateway  
+- Serverless Framework  
+- Node.js  
+- HTML + JavaScript (para la interfaz web)
+
+---
+
+## Implementación del Proyecto
+
+### Estructura del Código
+
+
+https://imgur.com/a/GJgfXqe
+
+
+
+### 🔄 Operaciones CRUD
+
+- **Crear:** Inserta un nuevo registro en DynamoDB usando Lambda.
+- **Leer:** Obtiene todos los registros o uno individual por ID.
+- **Actualizar:** Modifica datos de un registro existente.
+- **Eliminar:** Borra un registro a través del ID.
+
+---
+
+##  Capturas de Pantalla
+
+### Formulario Web funcionando
+https://imgur.com/TsPvQzy
+
+
+### Resultado en Postman 
+https://imgur.com/undefined
+
+
+
+###  Registros en DynamoDB
+https://imgur.com/undefined
+
+---
+
+## 🚀 Instrucciones de Ejecución
+
+### Requisitos previos
+
+- Tener instalado [Node.js]
+https://imgur.com/undefined
+
+- Instalar Serverless Framework:
+  ```bash
+  npm install -g serverless
+
+
+Pasos para clonar y desplegar
+Clona este repositorio:
+
+git clone https://github.com/KevinTitanZ/Api_Interfaz-Examen.git
+
+cd Api_Interfaz-Examen
+Instala las dependencias del proyecto:
+
 npm install
-Configurar credenciales de AWS:
-serverless config credentials --provider aws --key  --secret 
+Configura tus credenciales de AWS:
 
-Desplegar la API en AWS:
+serverless config credentials --provider aws --key TU_AWS_KEY --secret TU_AWS_SECRET
+Despliega la API:
+
 serverless deploy
-Obtener el endpoint de la API:
+Obtén el endpoint de la API.
 
-El comando anterior mostrará la URL base de la API.
-Probar la API:
+Prueba la API desde el navegador, Postman o usando index.html.
 
-Puedes usar la interfaz web (index.html) o herramientas como Postman para probar los endpoints.
+**Conclusiones**
+-Durante el desarrollo de este proyecto aprendí a:
+
+-Implementar funciones Lambda para operaciones CRUD.
+
+-Utilizar DynamoDB como base de datos NoSQL.
+
+-Configurar y desplegar un proyecto usando Serverless Framework.
+
+-Conectar una interfaz web con endpoints RESTful.
+
+**Dificultades enfrentadas**
+-Problemas iniciales con la configuración del repositorio Git (push bloqueado por secretos).
+
+-Validación de datos al consumir los endpoints desde HTML/JavaScript.
+
+-Permisos IAM mal configurados en un principio.
+
+-Todas estas dificultades fueron resueltas revisando documentación oficial, usando herramientas como Postman y con práctica constante.
+
+
+ **Referencias**
+Documentación oficial de Serverless Framework
+
+AWS Lambda Docs
+
+DynamoDB Docs
+
+API Gateway Docs
+
+GitHub Push Protection

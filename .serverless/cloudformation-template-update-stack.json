@@ -122,7 +122,7 @@
       "Properties": {
         "Code": {
           "S3Bucket": "serverless-framework-deployments-us-east-1-1c6f9a6f-8b98",
-          "S3Key": "serverless/AppTask/dev/1748609262480-2025-05-30T12:47:42.480Z/AppTask.zip"
+          "S3Key": "serverless/AppTask/dev/1748611888086-2025-05-30T13:31:28.086Z/AppTask.zip"
         },
         "Handler": "src/agregarRegistro.agregarRegistro",
         "Runtime": "nodejs20.x",
@@ -145,7 +145,7 @@
       "Properties": {
         "Code": {
           "S3Bucket": "serverless-framework-deployments-us-east-1-1c6f9a6f-8b98",
-          "S3Key": "serverless/AppTask/dev/1748609262480-2025-05-30T12:47:42.480Z/AppTask.zip"
+          "S3Key": "serverless/AppTask/dev/1748611888086-2025-05-30T13:31:28.086Z/AppTask.zip"
         },
         "Handler": "src/obtenerRegistros.obtenerRegistros",
         "Runtime": "nodejs20.x",
@@ -168,7 +168,7 @@
       "Properties": {
         "Code": {
           "S3Bucket": "serverless-framework-deployments-us-east-1-1c6f9a6f-8b98",
-          "S3Key": "serverless/AppTask/dev/1748609262480-2025-05-30T12:47:42.480Z/AppTask.zip"
+          "S3Key": "serverless/AppTask/dev/1748611888086-2025-05-30T13:31:28.086Z/AppTask.zip"
         },
         "Handler": "src/obtenerRegistroIndividual.obtenerRegistroIndividual",
         "Runtime": "nodejs20.x",
@@ -191,7 +191,7 @@
       "Properties": {
         "Code": {
           "S3Bucket": "serverless-framework-deployments-us-east-1-1c6f9a6f-8b98",
-          "S3Key": "serverless/AppTask/dev/1748609262480-2025-05-30T12:47:42.480Z/AppTask.zip"
+          "S3Key": "serverless/AppTask/dev/1748611888086-2025-05-30T13:31:28.086Z/AppTask.zip"
         },
         "Handler": "src/actualizarRegistro.actualizarRegistro",
         "Runtime": "nodejs20.x",
@@ -214,7 +214,7 @@
       "Properties": {
         "Code": {
           "S3Bucket": "serverless-framework-deployments-us-east-1-1c6f9a6f-8b98",
-          "S3Key": "serverless/AppTask/dev/1748609262480-2025-05-30T12:47:42.480Z/AppTask.zip"
+          "S3Key": "serverless/AppTask/dev/1748611888086-2025-05-30T13:31:28.086Z/AppTask.zip"
         },
         "Handler": "src/eliminarRegistro.eliminarRegistro",
         "Runtime": "nodejs20.x",
@@ -232,54 +232,54 @@
         "EliminarRegistroLogGroup"
       ]
     },
-    "AgregarRegistroLambdaVersionmtvFKQm3DUlDN8YrlKX2rho8TtjpzoRUl9EZ7QfImxM": {
+    "AgregarRegistroLambdaVersiongotHTgvt0aoYt1pzqkOjoKCStigPayBwg7FzlSLkQ": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "AgregarRegistroLambdaFunction"
         },
-        "CodeSha256": "k36LpphuUQ4osFkNI8n2rEuLZMqW1IRca5Q3eKaqQhk="
+        "CodeSha256": "p83Dy/uIbLVQcms+2a++DzV+dmKsFK/tZvUnuzKm3SQ="
       }
     },
-    "ObtenerRegistrosLambdaVersionMi7OYdlsFaLQCd5KuLKqdajERO8CI4Inl0zx7Om90": {
+    "ObtenerRegistrosLambdaVersionCyPlCfqbLqWwmwg5oLsXFa81PaJ1uNvNWk11mbY": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "ObtenerRegistrosLambdaFunction"
         },
-        "CodeSha256": "k36LpphuUQ4osFkNI8n2rEuLZMqW1IRca5Q3eKaqQhk="
+        "CodeSha256": "p83Dy/uIbLVQcms+2a++DzV+dmKsFK/tZvUnuzKm3SQ="
       }
     },
-    "ObtenerRegistroIndividualLambdaVersionjwEyKl0k7nliOBlQzccuVvjH7MKrzEk7GBIDYbtk": {
+    "ObtenerRegistroIndividualLambdaVersionY8wzNvcLkFUrA74mZKdOR2UDuOjhVCTRSRv7xc5TU": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "ObtenerRegistroIndividualLambdaFunction"
         },
-        "CodeSha256": "k36LpphuUQ4osFkNI8n2rEuLZMqW1IRca5Q3eKaqQhk="
+        "CodeSha256": "p83Dy/uIbLVQcms+2a++DzV+dmKsFK/tZvUnuzKm3SQ="
       }
     },
-    "ActualizarRegistroLambdaVersionS32X4jm3V0Y9nZvvE0TgPFe7RSUBle2M0giM9jqxLM": {
+    "ActualizarRegistroLambdaVersionsm1K4Ks4K8JiXLOXNfKdqhkIAJlNtY4JyZsbXQI": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "ActualizarRegistroLambdaFunction"
         },
-        "CodeSha256": "k36LpphuUQ4osFkNI8n2rEuLZMqW1IRca5Q3eKaqQhk="
+        "CodeSha256": "p83Dy/uIbLVQcms+2a++DzV+dmKsFK/tZvUnuzKm3SQ="
       }
     },
-    "EliminarRegistroLambdaVersionRWY5qRXOSse6vsDCMxxPozxxNh3URD9drafilZ5HM": {
+    "EliminarRegistroLambdaVersionhKGnmGkIJO1g6jjxg7PBckT30PZQUSxHbEF4FacGhA": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "EliminarRegistroLambdaFunction"
         },
-        "CodeSha256": "k36LpphuUQ4osFkNI8n2rEuLZMqW1IRca5Q3eKaqQhk="
+        "CodeSha256": "p83Dy/uIbLVQcms+2a++DzV+dmKsFK/tZvUnuzKm3SQ="
       }
     },
     "HttpApi": {
@@ -727,7 +727,7 @@
     "AgregarRegistroLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "AgregarRegistroLambdaVersionmtvFKQm3DUlDN8YrlKX2rho8TtjpzoRUl9EZ7QfImxM"
+        "Ref": "AgregarRegistroLambdaVersiongotHTgvt0aoYt1pzqkOjoKCStigPayBwg7FzlSLkQ"
       },
       "Export": {
         "Name": "sls-AppTask-dev-AgregarRegistroLambdaFunctionQualifiedArn"
@@ -736,7 +736,7 @@
     "ObtenerRegistrosLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "ObtenerRegistrosLambdaVersionMi7OYdlsFaLQCd5KuLKqdajERO8CI4Inl0zx7Om90"
+        "Ref": "ObtenerRegistrosLambdaVersionCyPlCfqbLqWwmwg5oLsXFa81PaJ1uNvNWk11mbY"
       },
       "Export": {
         "Name": "sls-AppTask-dev-ObtenerRegistrosLambdaFunctionQualifiedArn"
@@ -745,7 +745,7 @@
     "ObtenerRegistroIndividualLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "ObtenerRegistroIndividualLambdaVersionjwEyKl0k7nliOBlQzccuVvjH7MKrzEk7GBIDYbtk"
+        "Ref": "ObtenerRegistroIndividualLambdaVersionY8wzNvcLkFUrA74mZKdOR2UDuOjhVCTRSRv7xc5TU"
       },
       "Export": {
         "Name": "sls-AppTask-dev-ObtenerRegistroIndividualLambdaFunctionQualifiedArn"
@@ -754,7 +754,7 @@
     "ActualizarRegistroLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "ActualizarRegistroLambdaVersionS32X4jm3V0Y9nZvvE0TgPFe7RSUBle2M0giM9jqxLM"
+        "Ref": "ActualizarRegistroLambdaVersionsm1K4Ks4K8JiXLOXNfKdqhkIAJlNtY4JyZsbXQI"
       },
       "Export": {
         "Name": "sls-AppTask-dev-ActualizarRegistroLambdaFunctionQualifiedArn"
@@ -763,7 +763,7 @@
     "EliminarRegistroLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "EliminarRegistroLambdaVersionRWY5qRXOSse6vsDCMxxPozxxNh3URD9drafilZ5HM"
+        "Ref": "EliminarRegistroLambdaVersionhKGnmGkIJO1g6jjxg7PBckT30PZQUSxHbEF4FacGhA"
       },
       "Export": {
         "Name": "sls-AppTask-dev-EliminarRegistroLambdaFunctionQualifiedArn"
