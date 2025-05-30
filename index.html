@@ -101,27 +101,27 @@
 
       async function obtenerRegistros() {
         try {
-          const response = await fetch(`${apiBaseUrl}/tareas`);
+          const response = await fetch(`${apiBaseUrl}/registros`);
           const data = await response.json();
           const tasksList = document.getElementById("tasksList");
           tasksList.innerHTML = "";
 
-          data.data.forEach((task) => {
+          data.data.forEach((registro) => {
             const taskElement = document.createElement("li");
             taskElement.className = "list-group-item d-flex justify-content-between align-items-center";
             taskElement.innerHTML = `
             <div class="task-info">
-              <h5 class="mb-1">${task.nombre}</h5>
-              <p class="mb-1 text-muted">Cédula: ${task.numeroCedula}</p>
-              <p class="mb-1">Fecha de Nacimiento: ${task.fechaNacimiento}</p>
-              <p class="mb-1">Ciudad: ${task.ciudadNacimiento}, País: ${task.pais}</p>
-              <p class="mb-0">Sexo: ${task.sexo}, Tipo de Sangre: ${task.tipoSangre}</p>
+              <h5 class="mb-1">${registro.nombre}</h5>
+              <p class="mb-1 text-muted">Cédula: ${registro.numeroCedula}</p>
+              <p class="mb-1">Fecha de Nacimiento: ${registro.fechaNacimiento}</p>
+              <p class="mb-1">Ciudad: ${registro.ciudadNacimiento}, País: ${registro.pais}</p>
+              <p class="mb-0">Sexo: ${registro.sexo}, Tipo de Sangre: ${registro.tipoSangre}</p>
             </div>
             <div class="ms-3">
-              <button class="btn btn-warning btn-sm me-2" onclick="editarTask('${task.id}', '${task.nombre}', '${task.fechaNacimiento}', '${task.numeroCedula}', '${task.ciudadNacimiento}', '${task.pais}', '${task.sexo}', '${task.tipoSangre}')">
+              <button class="btn btn-warning btn-sm me-2" onclick="editarRegistro('${registro.id}', '${registro.nombre}', '${registro.fechaNacimiento}', '${registro.numeroCedula}', '${registro.ciudadNacimiento}', '${registro.pais}', '${registro.sexo}', '${registro.tipoSangre}')">
                 <i class="bi bi-pencil-fill"></i> Editar
               </button>
-              <button class="btn btn-danger btn-sm" onclick="eliminarTask('${task.id}')">
+              <button class="btn btn-danger btn-sm" onclick="eliminarRegistro('${registro.id}')">
                 <i class="bi bi-trash-fill"></i> Eliminar
               </button>
             </div>
@@ -129,7 +129,7 @@
             tasksList.appendChild(taskElement);
           });
         } catch (error) {
-          alert("Error al obtener personas: " + error.message);
+          alert("Error al obtener registros: " + error.message);
         }
       }
 
@@ -146,7 +146,7 @@
           const tipoSangre = document.getElementById("tipoSangre").value;
 
           try {
-            const response = await fetch(`${apiBaseUrl}/tarea`, {
+            const response = await fetch(`${apiBaseUrl}/registro`, {
               method: "PUT",
               headers: {
                 "Content-Type": "application/json",
@@ -159,32 +159,32 @@
               obtenerRegistros();
               e.target.reset();
             } else {
-              alert("Error al agregar persona");
+              alert("Error al agregar registro");
             }
           } catch (error) {
-            alert("Error al agregar persona: " + error.message);
+            alert("Error al agregar registro: " + error.message);
           }
         });
 
-      async function eliminarTask(id) {
-        if (!confirm("¿Estás seguro de eliminar esta persona?")) return;
+      async function eliminarRegistro(id) {
+        if (!confirm("¿Estás seguro de eliminar este registro?")) return;
 
         try {
-          const response = await fetch(`${apiBaseUrl}/tarea/${id}`, {
+          const response = await fetch(`${apiBaseUrl}/registro/${id}`, {
             method: "DELETE",
           });
           const data = await response.json();
-          if (data.message.includes("eliminada")) {
+          if (data.message.includes("eliminado")) {
             obtenerRegistros();
           } else {
-            alert("Error al eliminar persona");
+            alert("Error al eliminar registro");
           }
         } catch (error) {
-          alert("Error al eliminar persona: " + error.message);
+          alert("Error al eliminar registro: " + error.message);
         }
       }
 
-      async function editarTask(id, nombre, fechaNacimiento, numeroCedula, ciudadNacimiento, pais, sexo, tipoSangre) {
+      async function editarRegistro(id, nombre, fechaNacimiento, numeroCedula, ciudadNacimiento, pais, sexo, tipoSangre) {
         const nuevoNombre = prompt("Nuevo nombre:", nombre);
         const nuevaFechaNacimiento = prompt("Nueva fecha de nacimiento:", fechaNacimiento);
         const nuevoNumeroCedula = prompt("Nuevo número de cédula:", numeroCedula);
@@ -198,7 +198,7 @@
           return;
         }
         try {
-          const response = await fetch(`${apiBaseUrl}/tareas/${id}`, {
+          const response = await fetch(`${apiBaseUrl}/registros/${id}`, {
             method: "PUT",
             headers: {
               "Content-Type": "application/json",
@@ -215,13 +215,13 @@
           });
 
           const data = await response.json();
-          if (data.message.includes("actualizada")) {
+          if (data.message.includes("actualizado")) {
             obtenerRegistros();
           } else {
-            alert("Error al actualizar persona");
+            alert("Error al actualizar registro");
           }
         } catch (error) {
-          alert("Error al actualizar persona: " + error.message);
+          alert("Error al actualizar registro: " + error.message);
         }
       }
 
