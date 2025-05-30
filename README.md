@@ -53,29 +53,24 @@ https://imgur.com/a/GJgfXqe
 - **Eliminar:** Borra un registro a través del ID.
 
 ---
-
-##  Capturas de Pantalla
+## Capturas de Pantalla
 
 ### Formulario Web funcionando
-https://imgur.com/TsPvQzy
+![Formulario 1](https://i.imgur.com/2eRf7vg.png)  
+![Formulario 2](https://i.imgur.com/TsPvQzy.png)
 
+### Endpoints
+![Endpoints](https://i.imgur.com/6Y22a6r.png)
 
 ### Resultado en Postman 
-https://imgur.com/undefined
+![Postman 1](https://i.imgur.com/XvoSVkW.png)  
+![Postman 2](https://i.imgur.com/EzeB7Sx.png)  
+![Postman 3](https://i.imgur.com/hfTCZmX.png)  
+![Postman 4](https://i.imgur.com/5ho8fyh.png)  
+![Postman 5](https://i.imgur.com/GPwyQ50.png)
 
-
-
-###  Registros en DynamoDB
-https://imgur.com/undefined
-
----
-
-## 🚀 Instrucciones de Ejecución
-
-### Requisitos previos
-
-- Tener instalado [Node.js]
-https://imgur.com/undefined
+### Registros en DynamoDB
+![DynamoDB](https://i.imgur.com/lzOzl1r.png)
 
 - Instalar Serverless Framework:
   ```bash
@@ -83,11 +78,9 @@ https://imgur.com/undefined
 
 
 Pasos para clonar y desplegar
-Clona este repositorio:
 
-git clone https://github.com/KevinTitanZ/Api_Interfaz-Examen.git
 
-cd Api_Interfaz-Examen
+
 Instala las dependencias del proyecto:
 
 npm install
@@ -123,12 +116,7 @@ Prueba la API desde el navegador, Postman o usando index.html.
 
 
  **Referencias**
-Documentación oficial de Serverless Framework
 
-AWS Lambda Docs
 
-DynamoDB Docs
-
-API Gateway Docs
-
-GitHub Push Protection
+**Link**
+https://github.com/KevinTitanZ/Api_Interfaz-Examen?tab=readme-ov-file
