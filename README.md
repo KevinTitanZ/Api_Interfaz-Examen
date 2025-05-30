@@ -41,7 +41,7 @@ Las tecnologías serverless permiten una arquitectura distribuida moderna, con e
 ### Estructura del Código
 
 
-![Estructura](https://i.imgur.com/XXXXX.png)
+![Estructura](https://imgur.com/h8Wg5ZC)
 
 
 
