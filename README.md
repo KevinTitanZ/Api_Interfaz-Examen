@@ -41,7 +41,7 @@ Las tecnologías serverless permiten una arquitectura distribuida moderna, con e
 ### Estructura del Código
 
 
-https://imgur.com/a/GJgfXqe
+![Estructura Código](https://i.imgur.com/XXXXX.png)
 
 
 
@@ -63,10 +63,15 @@ https://imgur.com/a/GJgfXqe
 ![Endpoints](https://i.imgur.com/6Y22a6r.png)
 
 ### Resultado en Postman 
+**CREAR**
 ![Postman 1](https://i.imgur.com/XvoSVkW.png)  
+**VISUALIZAR**
 ![Postman 2](https://i.imgur.com/EzeB7Sx.png)  
+***VISUALIZAR INDIVIDUAL**
 ![Postman 3](https://i.imgur.com/hfTCZmX.png)  
+**ACTUALIZAR**
 ![Postman 4](https://i.imgur.com/5ho8fyh.png)  
+**ELIMINAR**
 ![Postman 5](https://i.imgur.com/GPwyQ50.png)
 
 ### Registros en DynamoDB
