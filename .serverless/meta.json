@@ -1,0 +1,2672 @@
+{
+  "K:\\Kevin\\Api_examen\\serverless.yml": {
+    "versionFramework": "4.15.1",
+    "servicePath": "K:\\Kevin\\Api_examen\\serverless.yml",
+    "serviceConfigFileName": "serverless.yml",
+    "service": {
+      "service": "AppTask",
+      "provider": {
+        "name": "aws",
+        "runtime": "nodejs20.x",
+        "httpApi": {
+          "cors": true
+        },
+        "iamRoleStatements": [
+          {
+            "Effect": "Allow",
+            "Action": [
+              "dynamodb:*"
+            ],
+            "Resource": "arn:aws:dynamodb:us-east-1:648908580448:table/examen_kevin"
+          }
+        ],
+        "stage": "dev",
+        "region": "us-east-1",
+        "versionFunctions": true,
+        "compiledCloudFormationTemplate": {
+          "AWSTemplateFormatVersion": "2010-09-09",
+          "Description": "The AWS CloudFormation template for this Serverless application",
+          "Resources": {
+            "AgregarRegistroLogGroup": {
+              "Type": "AWS::Logs::LogGroup",
+              "Properties": {
+                "LogGroupName": "/aws/lambda/AppTask-dev-agregarRegistro"
+              }
+            },
+            "ObtenerRegistrosLogGroup": {
+              "Type": "AWS::Logs::LogGroup",
+              "Properties": {
+                "LogGroupName": "/aws/lambda/AppTask-dev-obtenerRegistros"
+              }
+            },
+            "ObtenerRegistroIndividualLogGroup": {
+              "Type": "AWS::Logs::LogGroup",
+              "Properties": {
+                "LogGroupName": "/aws/lambda/AppTask-dev-obtenerRegistroIndividual"
+              }
+            },
+            "ActualizarRegistroLogGroup": {
+              "Type": "AWS::Logs::LogGroup",
+              "Properties": {
+                "LogGroupName": "/aws/lambda/AppTask-dev-actualizarRegistro"
+              }
+            },
+            "EliminarRegistroLogGroup": {
+              "Type": "AWS::Logs::LogGroup",
+              "Properties": {
+                "LogGroupName": "/aws/lambda/AppTask-dev-eliminarRegistro"
+              }
+            },
+            "IamRoleLambdaExecution": {
+              "Type": "AWS::IAM::Role",
+              "Properties": {
+                "AssumeRolePolicyDocument": {
+                  "Version": "2012-10-17",
+                  "Statement": [
+                    {
+                      "Effect": "Allow",
+                      "Principal": {
+                        "Service": [
+                          "lambda.amazonaws.com"
+                        ]
+                      },
+                      "Action": [
+                        "sts:AssumeRole"
+                      ]
+                    }
+                  ]
+                },
+                "Policies": [
+                  {
+                    "PolicyName": {
+                      "Fn::Join": [
+                        "-",
+                        [
+                          "AppTask",
+                          "dev",
+                          "lambda"
+                        ]
+                      ]
+                    },
+                    "PolicyDocument": {
+                      "Version": "2012-10-17",
+                      "Statement": [
+                        {
+                          "Effect": "Allow",
+                          "Action": [
+                            "logs:CreateLogStream",
+                            "logs:CreateLogGroup",
+                            "logs:TagResource"
+                          ],
+                          "Resource": [
+                            {
+                              "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/AppTask-dev*:*"
+                            }
+                          ]
+                        },
+                        {
+                          "Effect": "Allow",
+                          "Action": [
+                            "logs:PutLogEvents"
+                          ],
+                          "Resource": [
+                            {
+                              "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/AppTask-dev*:*:*"
+                            }
+                          ]
+                        },
+                        {
+                          "Effect": "Allow",
+                          "Action": [
+                            "dynamodb:*"
+                          ],
+                          "Resource": "arn:aws:dynamodb:us-east-1:648908580448:table/examen_kevin"
+                        }
+                      ]
+                    }
+                  }
+                ],
+                "Path": "/",
+                "RoleName": {
+                  "Fn::Join": [
+                    "-",
+                    [
+                      "AppTask",
+                      "dev",
+                      {
+                        "Ref": "AWS::Region"
+                      },
+                      "lambdaRole"
+                    ]
+                  ]
+                }
+              }
+            },
+            "AgregarRegistroLambdaFunction": {
+              "Type": "AWS::Lambda::Function",
+              "Properties": {
+                "Code": {
+                  "S3Bucket": "serverless-framework-deployments-us-east-1-1c6f9a6f-8b98",
+                  "S3Key": "serverless/AppTask/dev/1748609262480-2025-05-30T12:47:42.480Z/AppTask.zip"
+                },
+                "Handler": "src/agregarRegistro.agregarRegistro",
+                "Runtime": "nodejs20.x",
+                "FunctionName": "AppTask-dev-agregarRegistro",
+                "MemorySize": 1024,
+                "Timeout": 6,
+                "Role": {
+                  "Fn::GetAtt": [
+                    "IamRoleLambdaExecution",
+                    "Arn"
+                  ]
+                }
+              },
+              "DependsOn": [
+                "AgregarRegistroLogGroup"
+              ]
+            },
+            "ObtenerRegistrosLambdaFunction": {
+              "Type": "AWS::Lambda::Function",
+              "Properties": {
+                "Code": {
+                  "S3Bucket": "serverless-framework-deployments-us-east-1-1c6f9a6f-8b98",
+                  "S3Key": "serverless/AppTask/dev/1748609262480-2025-05-30T12:47:42.480Z/AppTask.zip"
+                },
+                "Handler": "src/obtenerRegistros.obtenerRegistros",
+                "Runtime": "nodejs20.x",
+                "FunctionName": "AppTask-dev-obtenerRegistros",
+                "MemorySize": 1024,
+                "Timeout": 6,
+                "Role": {
+                  "Fn::GetAtt": [
+                    "IamRoleLambdaExecution",
+                    "Arn"
+                  ]
+                }
+              },
+              "DependsOn": [
+                "ObtenerRegistrosLogGroup"
+              ]
+            },
+            "ObtenerRegistroIndividualLambdaFunction": {
+              "Type": "AWS::Lambda::Function",
+              "Properties": {
+                "Code": {
+                  "S3Bucket": "serverless-framework-deployments-us-east-1-1c6f9a6f-8b98",
+                  "S3Key": "serverless/AppTask/dev/1748609262480-2025-05-30T12:47:42.480Z/AppTask.zip"
+                },
+                "Handler": "src/obtenerRegistroIndividual.obtenerRegistroIndividual",
+                "Runtime": "nodejs20.x",
+                "FunctionName": "AppTask-dev-obtenerRegistroIndividual",
+                "MemorySize": 1024,
+                "Timeout": 6,
+                "Role": {
+                  "Fn::GetAtt": [
+                    "IamRoleLambdaExecution",
+                    "Arn"
+                  ]
+                }
+              },
+              "DependsOn": [
+                "ObtenerRegistroIndividualLogGroup"
+              ]
+            },
+            "ActualizarRegistroLambdaFunction": {
+              "Type": "AWS::Lambda::Function",
+              "Properties": {
+                "Code": {
+                  "S3Bucket": "serverless-framework-deployments-us-east-1-1c6f9a6f-8b98",
+                  "S3Key": "serverless/AppTask/dev/1748609262480-2025-05-30T12:47:42.480Z/AppTask.zip"
+                },
+                "Handler": "src/actualizarRegistro.actualizarRegistro",
+                "Runtime": "nodejs20.x",
+                "FunctionName": "AppTask-dev-actualizarRegistro",
+                "MemorySize": 1024,
+                "Timeout": 6,
+                "Role": {
+                  "Fn::GetAtt": [
+                    "IamRoleLambdaExecution",
+                    "Arn"
+                  ]
+                }
+              },
+              "DependsOn": [
+                "ActualizarRegistroLogGroup"
+              ]
+            },
+            "EliminarRegistroLambdaFunction": {
+              "Type": "AWS::Lambda::Function",
+              "Properties": {
+                "Code": {
+                  "S3Bucket": "serverless-framework-deployments-us-east-1-1c6f9a6f-8b98",
+                  "S3Key": "serverless/AppTask/dev/1748609262480-2025-05-30T12:47:42.480Z/AppTask.zip"
+                },
+                "Handler": "src/eliminarRegistro.eliminarRegistro",
+                "Runtime": "nodejs20.x",
+                "FunctionName": "AppTask-dev-eliminarRegistro",
+                "MemorySize": 1024,
+                "Timeout": 6,
+                "Role": {
+                  "Fn::GetAtt": [
+                    "IamRoleLambdaExecution",
+                    "Arn"
+                  ]
+                }
+              },
+              "DependsOn": [
+                "EliminarRegistroLogGroup"
+              ]
+            },
+            "AgregarRegistroLambdaVersionmtvFKQm3DUlDN8YrlKX2rho8TtjpzoRUl9EZ7QfImxM": {
+              "Type": "AWS::Lambda::Version",
+              "DeletionPolicy": "Retain",
+              "Properties": {
+                "FunctionName": {
+                  "Ref": "AgregarRegistroLambdaFunction"
+                },
+                "CodeSha256": "k36LpphuUQ4osFkNI8n2rEuLZMqW1IRca5Q3eKaqQhk="
+              }
+            },
+            "ObtenerRegistrosLambdaVersionMi7OYdlsFaLQCd5KuLKqdajERO8CI4Inl0zx7Om90": {
+              "Type": "AWS::Lambda::Version",
+              "DeletionPolicy": "Retain",
+              "Properties": {
+                "FunctionName": {
+                  "Ref": "ObtenerRegistrosLambdaFunction"
+                },
+                "CodeSha256": "k36LpphuUQ4osFkNI8n2rEuLZMqW1IRca5Q3eKaqQhk="
+              }
+            },
+            "ObtenerRegistroIndividualLambdaVersionjwEyKl0k7nliOBlQzccuVvjH7MKrzEk7GBIDYbtk": {
+              "Type": "AWS::Lambda::Version",
+              "DeletionPolicy": "Retain",
+              "Properties": {
+                "FunctionName": {
+                  "Ref": "ObtenerRegistroIndividualLambdaFunction"
+                },
+                "CodeSha256": "k36LpphuUQ4osFkNI8n2rEuLZMqW1IRca5Q3eKaqQhk="
+              }
+            },
+            "ActualizarRegistroLambdaVersionS32X4jm3V0Y9nZvvE0TgPFe7RSUBle2M0giM9jqxLM": {
+              "Type": "AWS::Lambda::Version",
+              "DeletionPolicy": "Retain",
+              "Properties": {
+                "FunctionName": {
+                  "Ref": "ActualizarRegistroLambdaFunction"
+                },
+                "CodeSha256": "k36LpphuUQ4osFkNI8n2rEuLZMqW1IRca5Q3eKaqQhk="
+              }
+            },
+            "EliminarRegistroLambdaVersionRWY5qRXOSse6vsDCMxxPozxxNh3URD9drafilZ5HM": {
+              "Type": "AWS::Lambda::Version",
+              "DeletionPolicy": "Retain",
+              "Properties": {
+                "FunctionName": {
+                  "Ref": "EliminarRegistroLambdaFunction"
+                },
+                "CodeSha256": "k36LpphuUQ4osFkNI8n2rEuLZMqW1IRca5Q3eKaqQhk="
+              }
+            },
+            "HttpApi": {
+              "Type": "AWS::ApiGatewayV2::Api",
+              "Properties": {
+                "Name": "dev-AppTask",
+                "ProtocolType": "HTTP",
+                "CorsConfiguration": {
+                  "AllowCredentials": "<REDACTED>",
+                  "AllowHeaders": [
+                    "Content-Type",
+                    "X-Amz-Date",
+                    "Authorization",
+                    "X-Api-Key",
+                    "X-Amz-Security-Token",
+                    "X-Amz-User-Agent",
+                    "X-Amzn-Trace-Id"
+                  ],
+                  "AllowMethods": [
+                    "OPTIONS",
+                    "PUT",
+                    "GET",
+                    "DELETE"
+                  ],
+                  "AllowOrigins": [
+                    "*"
+                  ]
+                }
+              }
+            },
+            "HttpApiStage": {
+              "Type": "AWS::ApiGatewayV2::Stage",
+              "Properties": {
+                "ApiId": {
+                  "Ref": "HttpApi"
+                },
+                "StageName": "$default",
+                "AutoDeploy": true,
+                "DefaultRouteSettings": {
+                  "DetailedMetricsEnabled": false
+                }
+              }
+            },
+            "AgregarRegistroLambdaPermissionHttpApi": {
+              "Type": "AWS::Lambda::Permission",
+              "Properties": {
+                "FunctionName": {
+                  "Fn::GetAtt": [
+                    "AgregarRegistroLambdaFunction",
+                    "Arn"
+                  ]
+                },
+                "Action": "lambda:InvokeFunction",
+                "Principal": "apigateway.amazonaws.com",
+                "SourceArn": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition"
+                      },
+                      ":execute-api:",
+                      {
+                        "Ref": "AWS::Region"
+                      },
+                      ":",
+                      {
+                        "Ref": "AWS::AccountId"
+                      },
+                      ":",
+                      {
+                        "Ref": "HttpApi"
+                      },
+                      "/*"
+                    ]
+                  ]
+                }
+              }
+            },
+            "HttpApiIntegrationAgregarRegistro": {
+              "Type": "AWS::ApiGatewayV2::Integration",
+              "Properties": {
+                "ApiId": {
+                  "Ref": "HttpApi"
+                },
+                "IntegrationType": "AWS_PROXY",
+                "IntegrationUri": {
+                  "Fn::GetAtt": [
+                    "AgregarRegistroLambdaFunction",
+                    "Arn"
+                  ]
+                },
+                "PayloadFormatVersion": "2.0",
+                "TimeoutInMillis": 30000
+              }
+            },
+            "HttpApiRoutePutTarea": {
+              "Type": "AWS::ApiGatewayV2::Route",
+              "Properties": {
+                "ApiId": {
+                  "Ref": "HttpApi"
+                },
+                "RouteKey": "PUT /tarea",
+                "Target": {
+                  "Fn::Join": [
+                    "/",
+                    [
+                      "integrations",
+                      {
+                        "Ref": "HttpApiIntegrationAgregarRegistro"
+                      }
+                    ]
+                  ]
+                }
+              },
+              "DependsOn": "HttpApiIntegrationAgregarRegistro"
+            },
+            "ObtenerRegistrosLambdaPermissionHttpApi": {
+              "Type": "AWS::Lambda::Permission",
+              "Properties": {
+                "FunctionName": {
+                  "Fn::GetAtt": [
+                    "ObtenerRegistrosLambdaFunction",
+                    "Arn"
+                  ]
+                },
+                "Action": "lambda:InvokeFunction",
+                "Principal": "apigateway.amazonaws.com",
+                "SourceArn": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition"
+                      },
+                      ":execute-api:",
+                      {
+                        "Ref": "AWS::Region"
+                      },
+                      ":",
+                      {
+                        "Ref": "AWS::AccountId"
+                      },
+                      ":",
+                      {
+                        "Ref": "HttpApi"
+                      },
+                      "/*"
+                    ]
+                  ]
+                }
+              }
+            },
+            "HttpApiIntegrationObtenerRegistros": {
+              "Type": "AWS::ApiGatewayV2::Integration",
+              "Properties": {
+                "ApiId": {
+                  "Ref": "HttpApi"
+                },
+                "IntegrationType": "AWS_PROXY",
+                "IntegrationUri": {
+                  "Fn::GetAtt": [
+                    "ObtenerRegistrosLambdaFunction",
+                    "Arn"
+                  ]
+                },
+                "PayloadFormatVersion": "2.0",
+                "TimeoutInMillis": 30000
+              }
+            },
+            "HttpApiRouteGetTareas": {
+              "Type": "AWS::ApiGatewayV2::Route",
+              "Properties": {
+                "ApiId": {
+                  "Ref": "HttpApi"
+                },
+                "RouteKey": "GET /tareas",
+                "Target": {
+                  "Fn::Join": [
+                    "/",
+                    [
+                      "integrations",
+                      {
+                        "Ref": "HttpApiIntegrationObtenerRegistros"
+                      }
+                    ]
+                  ]
+                }
+              },
+              "DependsOn": "HttpApiIntegrationObtenerRegistros"
+            },
+            "ObtenerRegistroIndividualLambdaPermissionHttpApi": {
+              "Type": "AWS::Lambda::Permission",
+              "Properties": {
+                "FunctionName": {
+                  "Fn::GetAtt": [
+                    "ObtenerRegistroIndividualLambdaFunction",
+                    "Arn"
+                  ]
+                },
+                "Action": "lambda:InvokeFunction",
+                "Principal": "apigateway.amazonaws.com",
+                "SourceArn": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition"
+                      },
+                      ":execute-api:",
+                      {
+                        "Ref": "AWS::Region"
+                      },
+                      ":",
+                      {
+                        "Ref": "AWS::AccountId"
+                      },
+                      ":",
+                      {
+                        "Ref": "HttpApi"
+                      },
+                      "/*"
+                    ]
+                  ]
+                }
+              }
+            },
+            "HttpApiIntegrationObtenerRegistroIndividual": {
+              "Type": "AWS::ApiGatewayV2::Integration",
+              "Properties": {
+                "ApiId": {
+                  "Ref": "HttpApi"
+                },
+                "IntegrationType": "AWS_PROXY",
+                "IntegrationUri": {
+                  "Fn::GetAtt": [
+                    "ObtenerRegistroIndividualLambdaFunction",
+                    "Arn"
+                  ]
+                },
+                "PayloadFormatVersion": "2.0",
+                "TimeoutInMillis": 30000
+              }
+            },
+            "HttpApiRouteGetTareasIdVar": {
+              "Type": "AWS::ApiGatewayV2::Route",
+              "Properties": {
+                "ApiId": {
+                  "Ref": "HttpApi"
+                },
+                "RouteKey": "GET /tareas/{id}",
+                "Target": {
+                  "Fn::Join": [
+                    "/",
+                    [
+                      "integrations",
+                      {
+                        "Ref": "HttpApiIntegrationObtenerRegistroIndividual"
+                      }
+                    ]
+                  ]
+                }
+              },
+              "DependsOn": "HttpApiIntegrationObtenerRegistroIndividual"
+            },
+            "ActualizarRegistroLambdaPermissionHttpApi": {
+              "Type": "AWS::Lambda::Permission",
+              "Properties": {
+                "FunctionName": {
+                  "Fn::GetAtt": [
+                    "ActualizarRegistroLambdaFunction",
+                    "Arn"
+                  ]
+                },
+                "Action": "lambda:InvokeFunction",
+                "Principal": "apigateway.amazonaws.com",
+                "SourceArn": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition"
+                      },
+                      ":execute-api:",
+                      {
+                        "Ref": "AWS::Region"
+                      },
+                      ":",
+                      {
+                        "Ref": "AWS::AccountId"
+                      },
+                      ":",
+                      {
+                        "Ref": "HttpApi"
+                      },
+                      "/*"
+                    ]
+                  ]
+                }
+              }
+            },
+            "HttpApiIntegrationActualizarRegistro": {
+              "Type": "AWS::ApiGatewayV2::Integration",
+              "Properties": {
+                "ApiId": {
+                  "Ref": "HttpApi"
+                },
+                "IntegrationType": "AWS_PROXY",
+                "IntegrationUri": {
+                  "Fn::GetAtt": [
+                    "ActualizarRegistroLambdaFunction",
+                    "Arn"
+                  ]
+                },
+                "PayloadFormatVersion": "2.0",
+                "TimeoutInMillis": 30000
+              }
+            },
+            "HttpApiRoutePutTareasIdVar": {
+              "Type": "AWS::ApiGatewayV2::Route",
+              "Properties": {
+                "ApiId": {
+                  "Ref": "HttpApi"
+                },
+                "RouteKey": "PUT /tareas/{id}",
+                "Target": {
+                  "Fn::Join": [
+                    "/",
+                    [
+                      "integrations",
+                      {
+                        "Ref": "HttpApiIntegrationActualizarRegistro"
+                      }
+                    ]
+                  ]
+                }
+              },
+              "DependsOn": "HttpApiIntegrationActualizarRegistro"
+            },
+            "EliminarRegistroLambdaPermissionHttpApi": {
+              "Type": "AWS::Lambda::Permission",
+              "Properties": {
+                "FunctionName": {
+                  "Fn::GetAtt": [
+                    "EliminarRegistroLambdaFunction",
+                    "Arn"
+                  ]
+                },
+                "Action": "lambda:InvokeFunction",
+                "Principal": "apigateway.amazonaws.com",
+                "SourceArn": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition"
+                      },
+                      ":execute-api:",
+                      {
+                        "Ref": "AWS::Region"
+                      },
+                      ":",
+                      {
+                        "Ref": "AWS::AccountId"
+                      },
+                      ":",
+                      {
+                        "Ref": "HttpApi"
+                      },
+                      "/*"
+                    ]
+                  ]
+                }
+              }
+            },
+            "HttpApiIntegrationEliminarRegistro": {
+              "Type": "AWS::ApiGatewayV2::Integration",
+              "Properties": {
+                "ApiId": {
+                  "Ref": "HttpApi"
+                },
+                "IntegrationType": "AWS_PROXY",
+                "IntegrationUri": {
+                  "Fn::GetAtt": [
+                    "EliminarRegistroLambdaFunction",
+                    "Arn"
+                  ]
+                },
+                "PayloadFormatVersion": "2.0",
+                "TimeoutInMillis": 30000
+              }
+            },
+            "HttpApiRouteDeleteTareaIdVar": {
+              "Type": "AWS::ApiGatewayV2::Route",
+              "Properties": {
+                "ApiId": {
+                  "Ref": "HttpApi"
+                },
+                "RouteKey": "DELETE /tarea/{id}",
+                "Target": {
+                  "Fn::Join": [
+                    "/",
+                    [
+                      "integrations",
+                      {
+                        "Ref": "HttpApiIntegrationEliminarRegistro"
+                      }
+                    ]
+                  ]
+                }
+              },
+              "DependsOn": "HttpApiIntegrationEliminarRegistro"
+            },
+            "ExamenKevinTable": {
+              "Type": "AWS::DynamoDB::Table",
+              "Properties": {
+                "TableName": "examen_kevin",
+                "BillingMode": "PAY_PER_REQUEST",
+                "AttributeDefinitions": [
+                  {
+                    "AttributeName": "id",
+                    "AttributeType": "S"
+                  }
+                ],
+                "KeySchema": [
+                  {
+                    "AttributeName": "id",
+                    "KeyType": "HASH"
+                  }
+                ]
+              }
+            }
+          },
+          "Outputs": {
+            "ServerlessDeploymentBucketName": {
+              "Value": "serverless-framework-deployments-us-east-1-1c6f9a6f-8b98",
+              "Export": {
+                "Name": "sls-AppTask-dev-ServerlessDeploymentBucketName"
+              }
+            },
+            "AgregarRegistroLambdaFunctionQualifiedArn": {
+              "Description": "Current Lambda function version",
+              "Value": {
+                "Ref": "AgregarRegistroLambdaVersionmtvFKQm3DUlDN8YrlKX2rho8TtjpzoRUl9EZ7QfImxM"
+              },
+              "Export": {
+                "Name": "sls-AppTask-dev-AgregarRegistroLambdaFunctionQualifiedArn"
+              }
+            },
+            "ObtenerRegistrosLambdaFunctionQualifiedArn": {
+              "Description": "Current Lambda function version",
+              "Value": {
+                "Ref": "ObtenerRegistrosLambdaVersionMi7OYdlsFaLQCd5KuLKqdajERO8CI4Inl0zx7Om90"
+              },
+              "Export": {
+                "Name": "sls-AppTask-dev-ObtenerRegistrosLambdaFunctionQualifiedArn"
+              }
+            },
+            "ObtenerRegistroIndividualLambdaFunctionQualifiedArn": {
+              "Description": "Current Lambda function version",
+              "Value": {
+                "Ref": "ObtenerRegistroIndividualLambdaVersionjwEyKl0k7nliOBlQzccuVvjH7MKrzEk7GBIDYbtk"
+              },
+              "Export": {
+                "Name": "sls-AppTask-dev-ObtenerRegistroIndividualLambdaFunctionQualifiedArn"
+              }
+            },
+            "ActualizarRegistroLambdaFunctionQualifiedArn": {
+              "Description": "Current Lambda function version",
+              "Value": {
+                "Ref": "ActualizarRegistroLambdaVersionS32X4jm3V0Y9nZvvE0TgPFe7RSUBle2M0giM9jqxLM"
+              },
+              "Export": {
+                "Name": "sls-AppTask-dev-ActualizarRegistroLambdaFunctionQualifiedArn"
+              }
+            },
+            "EliminarRegistroLambdaFunctionQualifiedArn": {
+              "Description": "Current Lambda function version",
+              "Value": {
+                "Ref": "EliminarRegistroLambdaVersionRWY5qRXOSse6vsDCMxxPozxxNh3URD9drafilZ5HM"
+              },
+              "Export": {
+                "Name": "sls-AppTask-dev-EliminarRegistroLambdaFunctionQualifiedArn"
+              }
+            },
+            "HttpApiId": {
+              "Description": "Id of the HTTP API",
+              "Value": {
+                "Ref": "HttpApi"
+              },
+              "Export": {
+                "Name": "sls-AppTask-dev-HttpApiId"
+              }
+            },
+            "HttpApiUrl": {
+              "Description": "URL of the HTTP API",
+              "Value": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "https://",
+                    {
+                      "Ref": "HttpApi"
+                    },
+                    ".execute-api.",
+                    {
+                      "Ref": "AWS::Region"
+                    },
+                    ".",
+                    {
+                      "Ref": "AWS::URLSuffix"
+                    }
+                  ]
+                ]
+              },
+              "Export": {
+                "Name": "sls-AppTask-dev-HttpApiUrl"
+              }
+            }
+          }
+        },
+        "vpc": {}
+      },
+      "functions": {
+        "agregarRegistro": {
+          "handler": "src/agregarRegistro.agregarRegistro",
+          "events": [
+            {
+              "httpApi": {
+                "path": "/tarea",
+                "method": "put"
+              },
+              "resolvedMethod": "PUT",
+              "resolvedPath": "/tarea"
+            }
+          ],
+          "name": "AppTask-dev-agregarRegistro",
+          "package": {},
+          "memory": 1024,
+          "timeout": 6,
+          "runtime": "nodejs20.x",
+          "vpc": {},
+          "versionLogicalId": "AgregarRegistroLambdaVersionmtvFKQm3DUlDN8YrlKX2rho8TtjpzoRUl9EZ7QfImxM"
+        },
+        "obtenerRegistros": {
+          "handler": "src/obtenerRegistros.obtenerRegistros",
+          "events": [
+            {
+              "httpApi": {
+                "path": "/tareas",
+                "method": "get"
+              },
+              "resolvedMethod": "GET",
+              "resolvedPath": "/tareas"
+            }
+          ],
+          "name": "AppTask-dev-obtenerRegistros",
+          "package": {},
+          "memory": 1024,
+          "timeout": 6,
+          "runtime": "nodejs20.x",
+          "vpc": {},
+          "versionLogicalId": "ObtenerRegistrosLambdaVersionMi7OYdlsFaLQCd5KuLKqdajERO8CI4Inl0zx7Om90"
+        },
+        "obtenerRegistroIndividual": {
+          "handler": "src/obtenerRegistroIndividual.obtenerRegistroIndividual",
+          "events": [
+            {
+              "httpApi": {
+                "path": "/tareas/{id}",
+                "method": "get"
+              },
+              "resolvedMethod": "GET",
+              "resolvedPath": "/tareas/{id}"
+            }
+          ],
+          "name": "AppTask-dev-obtenerRegistroIndividual",
+          "package": {},
+          "memory": 1024,
+          "timeout": 6,
+          "runtime": "nodejs20.x",
+          "vpc": {},
+          "versionLogicalId": "ObtenerRegistroIndividualLambdaVersionjwEyKl0k7nliOBlQzccuVvjH7MKrzEk7GBIDYbtk"
+        },
+        "actualizarRegistro": {
+          "handler": "src/actualizarRegistro.actualizarRegistro",
+          "events": [
+            {
+              "httpApi": {
+                "path": "/tareas/{id}",
+                "method": "put"
+              },
+              "resolvedMethod": "PUT",
+              "resolvedPath": "/tareas/{id}"
+            }
+          ],
+          "name": "AppTask-dev-actualizarRegistro",
+          "package": {},
+          "memory": 1024,
+          "timeout": 6,
+          "runtime": "nodejs20.x",
+          "vpc": {},
+          "versionLogicalId": "ActualizarRegistroLambdaVersionS32X4jm3V0Y9nZvvE0TgPFe7RSUBle2M0giM9jqxLM"
+        },
+        "eliminarRegistro": {
+          "handler": "src/eliminarRegistro.eliminarRegistro",
+          "events": [
+            {
+              "httpApi": {
+                "path": "/tarea/{id}",
+                "method": "delete"
+              },
+              "resolvedMethod": "DELETE",
+              "resolvedPath": "/tarea/{id}"
+            }
+          ],
+          "name": "AppTask-dev-eliminarRegistro",
+          "package": {},
+          "memory": 1024,
+          "timeout": 6,
+          "runtime": "nodejs20.x",
+          "vpc": {},
+          "versionLogicalId": "EliminarRegistroLambdaVersionRWY5qRXOSse6vsDCMxxPozxxNh3URD9drafilZ5HM"
+        }
+      },
+      "resources": {
+        "Resources": {
+          "ExamenKevinTable": {
+            "Type": "AWS::DynamoDB::Table",
+            "Properties": {
+              "TableName": "examen_kevin",
+              "BillingMode": "PAY_PER_REQUEST",
+              "AttributeDefinitions": [
+                {
+                  "AttributeName": "id",
+                  "AttributeType": "S"
+                }
+              ],
+              "KeySchema": [
+                {
+                  "AttributeName": "id",
+                  "KeyType": "HASH"
+                }
+              ]
+            }
+          }
+        },
+        "Outputs": {}
+      }
+    },
+    "provider": {
+      "name": "aws",
+      "runtime": "nodejs20.x",
+      "httpApi": {
+        "cors": true
+      },
+      "iamRoleStatements": [
+        {
+          "Effect": "Allow",
+          "Action": [
+            "dynamodb:*"
+          ],
+          "Resource": "arn:aws:dynamodb:us-east-1:648908580448:table/examen_kevin"
+        }
+      ],
+      "stage": "dev",
+      "region": "us-east-1",
+      "versionFunctions": true,
+      "compiledCloudFormationTemplate": {
+        "AWSTemplateFormatVersion": "2010-09-09",
+        "Description": "The AWS CloudFormation template for this Serverless application",
+        "Resources": {
+          "AgregarRegistroLogGroup": {
+            "Type": "AWS::Logs::LogGroup",
+            "Properties": {
+              "LogGroupName": "/aws/lambda/AppTask-dev-agregarRegistro"
+            }
+          },
+          "ObtenerRegistrosLogGroup": {
+            "Type": "AWS::Logs::LogGroup",
+            "Properties": {
+              "LogGroupName": "/aws/lambda/AppTask-dev-obtenerRegistros"
+            }
+          },
+          "ObtenerRegistroIndividualLogGroup": {
+            "Type": "AWS::Logs::LogGroup",
+            "Properties": {
+              "LogGroupName": "/aws/lambda/AppTask-dev-obtenerRegistroIndividual"
+            }
+          },
+          "ActualizarRegistroLogGroup": {
+            "Type": "AWS::Logs::LogGroup",
+            "Properties": {
+              "LogGroupName": "/aws/lambda/AppTask-dev-actualizarRegistro"
+            }
+          },
+          "EliminarRegistroLogGroup": {
+            "Type": "AWS::Logs::LogGroup",
+            "Properties": {
+              "LogGroupName": "/aws/lambda/AppTask-dev-eliminarRegistro"
+            }
+          },
+          "IamRoleLambdaExecution": {
+            "Type": "AWS::IAM::Role",
+            "Properties": {
+              "AssumeRolePolicyDocument": {
+                "Version": "2012-10-17",
+                "Statement": [
+                  {
+                    "Effect": "Allow",
+                    "Principal": {
+                      "Service": [
+                        "lambda.amazonaws.com"
+                      ]
+                    },
+                    "Action": [
+                      "sts:AssumeRole"
+                    ]
+                  }
+                ]
+              },
+              "Policies": [
+                {
+                  "PolicyName": {
+                    "Fn::Join": [
+                      "-",
+                      [
+                        "AppTask",
+                        "dev",
+                        "lambda"
+                      ]
+                    ]
+                  },
+                  "PolicyDocument": {
+                    "Version": "2012-10-17",
+                    "Statement": [
+                      {
+                        "Effect": "Allow",
+                        "Action": [
+                          "logs:CreateLogStream",
+                          "logs:CreateLogGroup",
+                          "logs:TagResource"
+                        ],
+                        "Resource": [
+                          {
+                            "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/AppTask-dev*:*"
+                          }
+                        ]
+                      },
+                      {
+                        "Effect": "Allow",
+                        "Action": [
+                          "logs:PutLogEvents"
+                        ],
+                        "Resource": [
+                          {
+                            "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/AppTask-dev*:*:*"
+                          }
+                        ]
+                      },
+                      {
+                        "Effect": "Allow",
+                        "Action": [
+                          "dynamodb:*"
+                        ],
+                        "Resource": "arn:aws:dynamodb:us-east-1:648908580448:table/examen_kevin"
+                      }
+                    ]
+                  }
+                }
+              ],
+              "Path": "/",
+              "RoleName": {
+                "Fn::Join": [
+                  "-",
+                  [
+                    "AppTask",
+                    "dev",
+                    {
+                      "Ref": "AWS::Region"
+                    },
+                    "lambdaRole"
+                  ]
+                ]
+              }
+            }
+          },
+          "AgregarRegistroLambdaFunction": {
+            "Type": "AWS::Lambda::Function",
+            "Properties": {
+              "Code": {
+                "S3Bucket": "serverless-framework-deployments-us-east-1-1c6f9a6f-8b98",
+                "S3Key": "serverless/AppTask/dev/1748609262480-2025-05-30T12:47:42.480Z/AppTask.zip"
+              },
+              "Handler": "src/agregarRegistro.agregarRegistro",
+              "Runtime": "nodejs20.x",
+              "FunctionName": "AppTask-dev-agregarRegistro",
+              "MemorySize": 1024,
+              "Timeout": 6,
+              "Role": {
+                "Fn::GetAtt": [
+                  "IamRoleLambdaExecution",
+                  "Arn"
+                ]
+              }
+            },
+            "DependsOn": [
+              "AgregarRegistroLogGroup"
+            ]
+          },
+          "ObtenerRegistrosLambdaFunction": {
+            "Type": "AWS::Lambda::Function",
+            "Properties": {
+              "Code": {
+                "S3Bucket": "serverless-framework-deployments-us-east-1-1c6f9a6f-8b98",
+                "S3Key": "serverless/AppTask/dev/1748609262480-2025-05-30T12:47:42.480Z/AppTask.zip"
+              },
+              "Handler": "src/obtenerRegistros.obtenerRegistros",
+              "Runtime": "nodejs20.x",
+              "FunctionName": "AppTask-dev-obtenerRegistros",
+              "MemorySize": 1024,
+              "Timeout": 6,
+              "Role": {
+                "Fn::GetAtt": [
+                  "IamRoleLambdaExecution",
+                  "Arn"
+                ]
+              }
+            },
+            "DependsOn": [
+              "ObtenerRegistrosLogGroup"
+            ]
+          },
+          "ObtenerRegistroIndividualLambdaFunction": {
+            "Type": "AWS::Lambda::Function",
+            "Properties": {
+              "Code": {
+                "S3Bucket": "serverless-framework-deployments-us-east-1-1c6f9a6f-8b98",
+                "S3Key": "serverless/AppTask/dev/1748609262480-2025-05-30T12:47:42.480Z/AppTask.zip"
+              },
+              "Handler": "src/obtenerRegistroIndividual.obtenerRegistroIndividual",
+              "Runtime": "nodejs20.x",
+              "FunctionName": "AppTask-dev-obtenerRegistroIndividual",
+              "MemorySize": 1024,
+              "Timeout": 6,
+              "Role": {
+                "Fn::GetAtt": [
+                  "IamRoleLambdaExecution",
+                  "Arn"
+                ]
+              }
+            },
+            "DependsOn": [
+              "ObtenerRegistroIndividualLogGroup"
+            ]
+          },
+          "ActualizarRegistroLambdaFunction": {
+            "Type": "AWS::Lambda::Function",
+            "Properties": {
+              "Code": {
+                "S3Bucket": "serverless-framework-deployments-us-east-1-1c6f9a6f-8b98",
+                "S3Key": "serverless/AppTask/dev/1748609262480-2025-05-30T12:47:42.480Z/AppTask.zip"
+              },
+              "Handler": "src/actualizarRegistro.actualizarRegistro",
+              "Runtime": "nodejs20.x",
+              "FunctionName": "AppTask-dev-actualizarRegistro",
+              "MemorySize": 1024,
+              "Timeout": 6,
+              "Role": {
+                "Fn::GetAtt": [
+                  "IamRoleLambdaExecution",
+                  "Arn"
+                ]
+              }
+            },
+            "DependsOn": [
+              "ActualizarRegistroLogGroup"
+            ]
+          },
+          "EliminarRegistroLambdaFunction": {
+            "Type": "AWS::Lambda::Function",
+            "Properties": {
+              "Code": {
+                "S3Bucket": "serverless-framework-deployments-us-east-1-1c6f9a6f-8b98",
+                "S3Key": "serverless/AppTask/dev/1748609262480-2025-05-30T12:47:42.480Z/AppTask.zip"
+              },
+              "Handler": "src/eliminarRegistro.eliminarRegistro",
+              "Runtime": "nodejs20.x",
+              "FunctionName": "AppTask-dev-eliminarRegistro",
+              "MemorySize": 1024,
+              "Timeout": 6,
+              "Role": {
+                "Fn::GetAtt": [
+                  "IamRoleLambdaExecution",
+                  "Arn"
+                ]
+              }
+            },
+            "DependsOn": [
+              "EliminarRegistroLogGroup"
+            ]
+          },
+          "AgregarRegistroLambdaVersionmtvFKQm3DUlDN8YrlKX2rho8TtjpzoRUl9EZ7QfImxM": {
+            "Type": "AWS::Lambda::Version",
+            "DeletionPolicy": "Retain",
+            "Properties": {
+              "FunctionName": {
+                "Ref": "AgregarRegistroLambdaFunction"
+              },
+              "CodeSha256": "k36LpphuUQ4osFkNI8n2rEuLZMqW1IRca5Q3eKaqQhk="
+            }
+          },
+          "ObtenerRegistrosLambdaVersionMi7OYdlsFaLQCd5KuLKqdajERO8CI4Inl0zx7Om90": {
+            "Type": "AWS::Lambda::Version",
+            "DeletionPolicy": "Retain",
+            "Properties": {
+              "FunctionName": {
+                "Ref": "ObtenerRegistrosLambdaFunction"
+              },
+              "CodeSha256": "k36LpphuUQ4osFkNI8n2rEuLZMqW1IRca5Q3eKaqQhk="
+            }
+          },
+          "ObtenerRegistroIndividualLambdaVersionjwEyKl0k7nliOBlQzccuVvjH7MKrzEk7GBIDYbtk": {
+            "Type": "AWS::Lambda::Version",
+            "DeletionPolicy": "Retain",
+            "Properties": {
+              "FunctionName": {
+                "Ref": "ObtenerRegistroIndividualLambdaFunction"
+              },
+              "CodeSha256": "k36LpphuUQ4osFkNI8n2rEuLZMqW1IRca5Q3eKaqQhk="
+            }
+          },
+          "ActualizarRegistroLambdaVersionS32X4jm3V0Y9nZvvE0TgPFe7RSUBle2M0giM9jqxLM": {
+            "Type": "AWS::Lambda::Version",
+            "DeletionPolicy": "Retain",
+            "Properties": {
+              "FunctionName": {
+                "Ref": "ActualizarRegistroLambdaFunction"
+              },
+              "CodeSha256": "k36LpphuUQ4osFkNI8n2rEuLZMqW1IRca5Q3eKaqQhk="
+            }
+          },
+          "EliminarRegistroLambdaVersionRWY5qRXOSse6vsDCMxxPozxxNh3URD9drafilZ5HM": {
+            "Type": "AWS::Lambda::Version",
+            "DeletionPolicy": "Retain",
+            "Properties": {
+              "FunctionName": {
+                "Ref": "EliminarRegistroLambdaFunction"
+              },
+              "CodeSha256": "k36LpphuUQ4osFkNI8n2rEuLZMqW1IRca5Q3eKaqQhk="
+            }
+          },
+          "HttpApi": {
+            "Type": "AWS::ApiGatewayV2::Api",
+            "Properties": {
+              "Name": "dev-AppTask",
+              "ProtocolType": "HTTP",
+              "CorsConfiguration": {
+                "AllowCredentials": "<REDACTED>",
+                "AllowHeaders": [
+                  "Content-Type",
+                  "X-Amz-Date",
+                  "Authorization",
+                  "X-Api-Key",
+                  "X-Amz-Security-Token",
+                  "X-Amz-User-Agent",
+                  "X-Amzn-Trace-Id"
+                ],
+                "AllowMethods": [
+                  "OPTIONS",
+                  "PUT",
+                  "GET",
+                  "DELETE"
+                ],
+                "AllowOrigins": [
+                  "*"
+                ]
+              }
+            }
+          },
+          "HttpApiStage": {
+            "Type": "AWS::ApiGatewayV2::Stage",
+            "Properties": {
+              "ApiId": {
+                "Ref": "HttpApi"
+              },
+              "StageName": "$default",
+              "AutoDeploy": true,
+              "DefaultRouteSettings": {
+                "DetailedMetricsEnabled": false
+              }
+            }
+          },
+          "AgregarRegistroLambdaPermissionHttpApi": {
+            "Type": "AWS::Lambda::Permission",
+            "Properties": {
+              "FunctionName": {
+                "Fn::GetAtt": [
+                  "AgregarRegistroLambdaFunction",
+                  "Arn"
+                ]
+              },
+              "Action": "lambda:InvokeFunction",
+              "Principal": "apigateway.amazonaws.com",
+              "SourceArn": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "arn:",
+                    {
+                      "Ref": "AWS::Partition"
+                    },
+                    ":execute-api:",
+                    {
+                      "Ref": "AWS::Region"
+                    },
+                    ":",
+                    {
+                      "Ref": "AWS::AccountId"
+                    },
+                    ":",
+                    {
+                      "Ref": "HttpApi"
+                    },
+                    "/*"
+                  ]
+                ]
+              }
+            }
+          },
+          "HttpApiIntegrationAgregarRegistro": {
+            "Type": "AWS::ApiGatewayV2::Integration",
+            "Properties": {
+              "ApiId": {
+                "Ref": "HttpApi"
+              },
+              "IntegrationType": "AWS_PROXY",
+              "IntegrationUri": {
+                "Fn::GetAtt": [
+                  "AgregarRegistroLambdaFunction",
+                  "Arn"
+                ]
+              },
+              "PayloadFormatVersion": "2.0",
+              "TimeoutInMillis": 30000
+            }
+          },
+          "HttpApiRoutePutTarea": {
+            "Type": "AWS::ApiGatewayV2::Route",
+            "Properties": {
+              "ApiId": {
+                "Ref": "HttpApi"
+              },
+              "RouteKey": "PUT /tarea",
+              "Target": {
+                "Fn::Join": [
+                  "/",
+                  [
+                    "integrations",
+                    {
+                      "Ref": "HttpApiIntegrationAgregarRegistro"
+                    }
+                  ]
+                ]
+              }
+            },
+            "DependsOn": "HttpApiIntegrationAgregarRegistro"
+          },
+          "ObtenerRegistrosLambdaPermissionHttpApi": {
+            "Type": "AWS::Lambda::Permission",
+            "Properties": {
+              "FunctionName": {
+                "Fn::GetAtt": [
+                  "ObtenerRegistrosLambdaFunction",
+                  "Arn"
+                ]
+              },
+              "Action": "lambda:InvokeFunction",
+              "Principal": "apigateway.amazonaws.com",
+              "SourceArn": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "arn:",
+                    {
+                      "Ref": "AWS::Partition"
+                    },
+                    ":execute-api:",
+                    {
+                      "Ref": "AWS::Region"
+                    },
+                    ":",
+                    {
+                      "Ref": "AWS::AccountId"
+                    },
+                    ":",
+                    {
+                      "Ref": "HttpApi"
+                    },
+                    "/*"
+                  ]
+                ]
+              }
+            }
+          },
+          "HttpApiIntegrationObtenerRegistros": {
+            "Type": "AWS::ApiGatewayV2::Integration",
+            "Properties": {
+              "ApiId": {
+                "Ref": "HttpApi"
+              },
+              "IntegrationType": "AWS_PROXY",
+              "IntegrationUri": {
+                "Fn::GetAtt": [
+                  "ObtenerRegistrosLambdaFunction",
+                  "Arn"
+                ]
+              },
+              "PayloadFormatVersion": "2.0",
+              "TimeoutInMillis": 30000
+            }
+          },
+          "HttpApiRouteGetTareas": {
+            "Type": "AWS::ApiGatewayV2::Route",
+            "Properties": {
+              "ApiId": {
+                "Ref": "HttpApi"
+              },
+              "RouteKey": "GET /tareas",
+              "Target": {
+                "Fn::Join": [
+                  "/",
+                  [
+                    "integrations",
+                    {
+                      "Ref": "HttpApiIntegrationObtenerRegistros"
+                    }
+                  ]
+                ]
+              }
+            },
+            "DependsOn": "HttpApiIntegrationObtenerRegistros"
+          },
+          "ObtenerRegistroIndividualLambdaPermissionHttpApi": {
+            "Type": "AWS::Lambda::Permission",
+            "Properties": {
+              "FunctionName": {
+                "Fn::GetAtt": [
+                  "ObtenerRegistroIndividualLambdaFunction",
+                  "Arn"
+                ]
+              },
+              "Action": "lambda:InvokeFunction",
+              "Principal": "apigateway.amazonaws.com",
+              "SourceArn": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "arn:",
+                    {
+                      "Ref": "AWS::Partition"
+                    },
+                    ":execute-api:",
+                    {
+                      "Ref": "AWS::Region"
+                    },
+                    ":",
+                    {
+                      "Ref": "AWS::AccountId"
+                    },
+                    ":",
+                    {
+                      "Ref": "HttpApi"
+                    },
+                    "/*"
+                  ]
+                ]
+              }
+            }
+          },
+          "HttpApiIntegrationObtenerRegistroIndividual": {
+            "Type": "AWS::ApiGatewayV2::Integration",
+            "Properties": {
+              "ApiId": {
+                "Ref": "HttpApi"
+              },
+              "IntegrationType": "AWS_PROXY",
+              "IntegrationUri": {
+                "Fn::GetAtt": [
+                  "ObtenerRegistroIndividualLambdaFunction",
+                  "Arn"
+                ]
+              },
+              "PayloadFormatVersion": "2.0",
+              "TimeoutInMillis": 30000
+            }
+          },
+          "HttpApiRouteGetTareasIdVar": {
+            "Type": "AWS::ApiGatewayV2::Route",
+            "Properties": {
+              "ApiId": {
+                "Ref": "HttpApi"
+              },
+              "RouteKey": "GET /tareas/{id}",
+              "Target": {
+                "Fn::Join": [
+                  "/",
+                  [
+                    "integrations",
+                    {
+                      "Ref": "HttpApiIntegrationObtenerRegistroIndividual"
+                    }
+                  ]
+                ]
+              }
+            },
+            "DependsOn": "HttpApiIntegrationObtenerRegistroIndividual"
+          },
+          "ActualizarRegistroLambdaPermissionHttpApi": {
+            "Type": "AWS::Lambda::Permission",
+            "Properties": {
+              "FunctionName": {
+                "Fn::GetAtt": [
+                  "ActualizarRegistroLambdaFunction",
+                  "Arn"
+                ]
+              },
+              "Action": "lambda:InvokeFunction",
+              "Principal": "apigateway.amazonaws.com",
+              "SourceArn": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "arn:",
+                    {
+                      "Ref": "AWS::Partition"
+                    },
+                    ":execute-api:",
+                    {
+                      "Ref": "AWS::Region"
+                    },
+                    ":",
+                    {
+                      "Ref": "AWS::AccountId"
+                    },
+                    ":",
+                    {
+                      "Ref": "HttpApi"
+                    },
+                    "/*"
+                  ]
+                ]
+              }
+            }
+          },
+          "HttpApiIntegrationActualizarRegistro": {
+            "Type": "AWS::ApiGatewayV2::Integration",
+            "Properties": {
+              "ApiId": {
+                "Ref": "HttpApi"
+              },
+              "IntegrationType": "AWS_PROXY",
+              "IntegrationUri": {
+                "Fn::GetAtt": [
+                  "ActualizarRegistroLambdaFunction",
+                  "Arn"
+                ]
+              },
+              "PayloadFormatVersion": "2.0",
+              "TimeoutInMillis": 30000
+            }
+          },
+          "HttpApiRoutePutTareasIdVar": {
+            "Type": "AWS::ApiGatewayV2::Route",
+            "Properties": {
+              "ApiId": {
+                "Ref": "HttpApi"
+              },
+              "RouteKey": "PUT /tareas/{id}",
+              "Target": {
+                "Fn::Join": [
+                  "/",
+                  [
+                    "integrations",
+                    {
+                      "Ref": "HttpApiIntegrationActualizarRegistro"
+                    }
+                  ]
+                ]
+              }
+            },
+            "DependsOn": "HttpApiIntegrationActualizarRegistro"
+          },
+          "EliminarRegistroLambdaPermissionHttpApi": {
+            "Type": "AWS::Lambda::Permission",
+            "Properties": {
+              "FunctionName": {
+                "Fn::GetAtt": [
+                  "EliminarRegistroLambdaFunction",
+                  "Arn"
+                ]
+              },
+              "Action": "lambda:InvokeFunction",
+              "Principal": "apigateway.amazonaws.com",
+              "SourceArn": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "arn:",
+                    {
+                      "Ref": "AWS::Partition"
+                    },
+                    ":execute-api:",
+                    {
+                      "Ref": "AWS::Region"
+                    },
+                    ":",
+                    {
+                      "Ref": "AWS::AccountId"
+                    },
+                    ":",
+                    {
+                      "Ref": "HttpApi"
+                    },
+                    "/*"
+                  ]
+                ]
+              }
+            }
+          },
+          "HttpApiIntegrationEliminarRegistro": {
+            "Type": "AWS::ApiGatewayV2::Integration",
+            "Properties": {
+              "ApiId": {
+                "Ref": "HttpApi"
+              },
+              "IntegrationType": "AWS_PROXY",
+              "IntegrationUri": {
+                "Fn::GetAtt": [
+                  "EliminarRegistroLambdaFunction",
+                  "Arn"
+                ]
+              },
+              "PayloadFormatVersion": "2.0",
+              "TimeoutInMillis": 30000
+            }
+          },
+          "HttpApiRouteDeleteTareaIdVar": {
+            "Type": "AWS::ApiGatewayV2::Route",
+            "Properties": {
+              "ApiId": {
+                "Ref": "HttpApi"
+              },
+              "RouteKey": "DELETE /tarea/{id}",
+              "Target": {
+                "Fn::Join": [
+                  "/",
+                  [
+                    "integrations",
+                    {
+                      "Ref": "HttpApiIntegrationEliminarRegistro"
+                    }
+                  ]
+                ]
+              }
+            },
+            "DependsOn": "HttpApiIntegrationEliminarRegistro"
+          },
+          "ExamenKevinTable": {
+            "Type": "AWS::DynamoDB::Table",
+            "Properties": {
+              "TableName": "examen_kevin",
+              "BillingMode": "PAY_PER_REQUEST",
+              "AttributeDefinitions": [
+                {
+                  "AttributeName": "id",
+                  "AttributeType": "S"
+                }
+              ],
+              "KeySchema": [
+                {
+                  "AttributeName": "id",
+                  "KeyType": "HASH"
+                }
+              ]
+            }
+          }
+        },
+        "Outputs": {
+          "ServerlessDeploymentBucketName": {
+            "Value": "serverless-framework-deployments-us-east-1-1c6f9a6f-8b98",
+            "Export": {
+              "Name": "sls-AppTask-dev-ServerlessDeploymentBucketName"
+            }
+          },
+          "AgregarRegistroLambdaFunctionQualifiedArn": {
+            "Description": "Current Lambda function version",
+            "Value": {
+              "Ref": "AgregarRegistroLambdaVersionmtvFKQm3DUlDN8YrlKX2rho8TtjpzoRUl9EZ7QfImxM"
+            },
+            "Export": {
+              "Name": "sls-AppTask-dev-AgregarRegistroLambdaFunctionQualifiedArn"
+            }
+          },
+          "ObtenerRegistrosLambdaFunctionQualifiedArn": {
+            "Description": "Current Lambda function version",
+            "Value": {
+              "Ref": "ObtenerRegistrosLambdaVersionMi7OYdlsFaLQCd5KuLKqdajERO8CI4Inl0zx7Om90"
+            },
+            "Export": {
+              "Name": "sls-AppTask-dev-ObtenerRegistrosLambdaFunctionQualifiedArn"
+            }
+          },
+          "ObtenerRegistroIndividualLambdaFunctionQualifiedArn": {
+            "Description": "Current Lambda function version",
+            "Value": {
+              "Ref": "ObtenerRegistroIndividualLambdaVersionjwEyKl0k7nliOBlQzccuVvjH7MKrzEk7GBIDYbtk"
+            },
+            "Export": {
+              "Name": "sls-AppTask-dev-ObtenerRegistroIndividualLambdaFunctionQualifiedArn"
+            }
+          },
+          "ActualizarRegistroLambdaFunctionQualifiedArn": {
+            "Description": "Current Lambda function version",
+            "Value": {
+              "Ref": "ActualizarRegistroLambdaVersionS32X4jm3V0Y9nZvvE0TgPFe7RSUBle2M0giM9jqxLM"
+            },
+            "Export": {
+              "Name": "sls-AppTask-dev-ActualizarRegistroLambdaFunctionQualifiedArn"
+            }
+          },
+          "EliminarRegistroLambdaFunctionQualifiedArn": {
+            "Description": "Current Lambda function version",
+            "Value": {
+              "Ref": "EliminarRegistroLambdaVersionRWY5qRXOSse6vsDCMxxPozxxNh3URD9drafilZ5HM"
+            },
+            "Export": {
+              "Name": "sls-AppTask-dev-EliminarRegistroLambdaFunctionQualifiedArn"
+            }
+          },
+          "HttpApiId": {
+            "Description": "Id of the HTTP API",
+            "Value": {
+              "Ref": "HttpApi"
+            },
+            "Export": {
+              "Name": "sls-AppTask-dev-HttpApiId"
+            }
+          },
+          "HttpApiUrl": {
+            "Description": "URL of the HTTP API",
+            "Value": {
+              "Fn::Join": [
+                "",
+                [
+                  "https://",
+                  {
+                    "Ref": "HttpApi"
+                  },
+                  ".execute-api.",
+                  {
+                    "Ref": "AWS::Region"
+                  },
+                  ".",
+                  {
+                    "Ref": "AWS::URLSuffix"
+                  }
+                ]
+              ]
+            },
+            "Export": {
+              "Name": "sls-AppTask-dev-HttpApiUrl"
+            }
+          }
+        }
+      },
+      "vpc": {}
+    },
+    "dashboard": {
+      "isEnabledForService": false,
+      "requiredAuthentication": false,
+      "orgFeaturesInUse": null,
+      "orgObservabilityIntegrations": null,
+      "serviceAppId": null,
+      "serviceProvider": null,
+      "instanceParameters": null
+    },
+    "serviceRawFile": "service: AppTask\n\nprovider:\n  name: aws\n  runtime: nodejs20.x\n  httpApi:\n    cors: true\n  iamRoleStatements:\n    - Effect: Allow\n      Action:\n        - dynamodb:*\n      Resource:\n        - arn:aws:dynamodb:us-east-1:648908580448:table/examen_kevin\n\nfunctions:\n\n  agregarRegistro:\n    handler: src/agregarRegistro.agregarRegistro\n    events:\n      - httpApi:\n          path: /tarea\n          method: put\n\n  obtenerRegistros:\n    handler: src/obtenerRegistros.obtenerRegistros\n    events:\n      - httpApi:\n          path: /tareas\n          method: get\n\n  obtenerRegistroIndividual:\n    handler: src/obtenerRegistroIndividual.obtenerRegistroIndividual\n    events:\n      - httpApi:\n          path: /tareas/{id}\n          method: get\n\n  actualizarRegistro:\n    handler: src/actualizarRegistro.actualizarRegistro\n    events:\n      - httpApi:\n          path: /tareas/{id}\n          method: put\n  eliminarRegistro:\n    handler: src/eliminarRegistro.eliminarRegistro\n    events:\n      - httpApi:\n          path: /tarea/{id}\n          method: delete\n\nresources:\n  Resources:\n    ExamenKevinTable:\n      Type: AWS::DynamoDB::Table\n      Properties:\n        TableName: examen_kevin\n        BillingMode: PAY_PER_REQUEST\n        AttributeDefinitions:\n          - AttributeName: id\n            AttributeType: S\n        KeySchema:\n          - AttributeName: id\n            KeyType: HASH",
+    "command": [
+      "deploy"
+    ],
+    "options": {},
+    "orgId": "c7770eb0-6884-48be-bf4c-3433a8d20a20",
+    "orgName": "kevin1",
+    "userId": "FZ6BYSDpfwxgnMpbvQ",
+    "userName": "kevin1",
+    "serviceProviderAwsAccountId": "648908580448",
+    "serviceProviderAwsCfStackName": "AppTask-dev",
+    "serviceProviderAwsCfStackId": "arn:aws:cloudformation:us-east-1:648908580448:stack/AppTask-dev/eb77b450-2436-11f0-a24a-0affefb4c111",
+    "serviceProviderAwsCfStackCreated": "2025-04-28T13:44:34.694Z",
+    "serviceProviderAwsCfStackUpdated": "2025-05-30T12:37:31.872Z",
+    "serviceProviderAwsCfStackStatus": "UPDATE_COMPLETE",
+    "serviceProviderAwsCfStackOutputs": [
+      {
+        "OutputKey": "ActualizarTaskLambdaFunctionQualifiedArn",
+        "OutputValue": "arn:aws:lambda:us-east-1:648908580448:function:AppTask-dev-actualizarTask:20",
+        "Description": "Current Lambda function version",
+        "ExportName": "sls-AppTask-dev-ActualizarTaskLambdaFunctionQualifiedArn"
+      },
+      {
+        "OutputKey": "ObtenerTaskLambdaFunctionQualifiedArn",
+        "OutputValue": "arn:aws:lambda:us-east-1:648908580448:function:AppTask-dev-obtenerTask:17",
+        "Description": "Current Lambda function version",
+        "ExportName": "sls-AppTask-dev-ObtenerTaskLambdaFunctionQualifiedArn"
+      },
+      {
+        "OutputKey": "ObtenerTareasLambdaFunctionQualifiedArn",
+        "OutputValue": "arn:aws:lambda:us-east-1:648908580448:function:AppTask-dev-obtenerTareas:23",
+        "Description": "Current Lambda function version",
+        "ExportName": "sls-AppTask-dev-ObtenerTareasLambdaFunctionQualifiedArn"
+      },
+      {
+        "OutputKey": "EliminarTaskLambdaFunctionQualifiedArn",
+        "OutputValue": "arn:aws:lambda:us-east-1:648908580448:function:AppTask-dev-eliminarTask:15",
+        "Description": "Current Lambda function version",
+        "ExportName": "sls-AppTask-dev-EliminarTaskLambdaFunctionQualifiedArn"
+      },
+      {
+        "OutputKey": "CrearTaskLambdaFunctionQualifiedArn",
+        "OutputValue": "arn:aws:lambda:us-east-1:648908580448:function:AppTask-dev-crearTask:29",
+        "Description": "Current Lambda function version",
+        "ExportName": "sls-AppTask-dev-CrearTaskLambdaFunctionQualifiedArn"
+      },
+      {
+        "OutputKey": "HttpApiId",
+        "OutputValue": "uftf3ytoc7",
+        "Description": "Id of the HTTP API",
+        "ExportName": "sls-AppTask-dev-HttpApiId"
+      },
+      {
+        "OutputKey": "ServerlessDeploymentBucketName",
+        "OutputValue": "serverless-framework-deployments-us-east-1-1c6f9a6f-8b98",
+        "ExportName": "sls-AppTask-dev-ServerlessDeploymentBucketName"
+      },
+      {
+        "OutputKey": "HttpApiUrl",
+        "OutputValue": "https://uftf3ytoc7.execute-api.us-east-1.amazonaws.com",
+        "Description": "URL of the HTTP API",
+        "ExportName": "sls-AppTask-dev-HttpApiUrl"
+      }
+    ],
+    "compiledCloudFormationTemplate": {
+      "AWSTemplateFormatVersion": "2010-09-09",
+      "Description": "The AWS CloudFormation template for this Serverless application",
+      "Resources": {
+        "AgregarRegistroLogGroup": {
+          "Type": "AWS::Logs::LogGroup",
+          "Properties": {
+            "LogGroupName": "/aws/lambda/AppTask-dev-agregarRegistro"
+          }
+        },
+        "ObtenerRegistrosLogGroup": {
+          "Type": "AWS::Logs::LogGroup",
+          "Properties": {
+            "LogGroupName": "/aws/lambda/AppTask-dev-obtenerRegistros"
+          }
+        },
+        "ObtenerRegistroIndividualLogGroup": {
+          "Type": "AWS::Logs::LogGroup",
+          "Properties": {
+            "LogGroupName": "/aws/lambda/AppTask-dev-obtenerRegistroIndividual"
+          }
+        },
+        "ActualizarRegistroLogGroup": {
+          "Type": "AWS::Logs::LogGroup",
+          "Properties": {
+            "LogGroupName": "/aws/lambda/AppTask-dev-actualizarRegistro"
+          }
+        },
+        "EliminarRegistroLogGroup": {
+          "Type": "AWS::Logs::LogGroup",
+          "Properties": {
+            "LogGroupName": "/aws/lambda/AppTask-dev-eliminarRegistro"
+          }
+        },
+        "IamRoleLambdaExecution": {
+          "Type": "AWS::IAM::Role",
+          "Properties": {
+            "AssumeRolePolicyDocument": {
+              "Version": "2012-10-17",
+              "Statement": [
+                {
+                  "Effect": "Allow",
+                  "Principal": {
+                    "Service": [
+                      "lambda.amazonaws.com"
+                    ]
+                  },
+                  "Action": [
+                    "sts:AssumeRole"
+                  ]
+                }
+              ]
+            },
+            "Policies": [
+              {
+                "PolicyName": {
+                  "Fn::Join": [
+                    "-",
+                    [
+                      "AppTask",
+                      "dev",
+                      "lambda"
+                    ]
+                  ]
+                },
+                "PolicyDocument": {
+                  "Version": "2012-10-17",
+                  "Statement": [
+                    {
+                      "Effect": "Allow",
+                      "Action": [
+                        "logs:CreateLogStream",
+                        "logs:CreateLogGroup",
+                        "logs:TagResource"
+                      ],
+                      "Resource": [
+                        {
+                          "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/AppTask-dev*:*"
+                        }
+                      ]
+                    },
+                    {
+                      "Effect": "Allow",
+                      "Action": [
+                        "logs:PutLogEvents"
+                      ],
+                      "Resource": [
+                        {
+                          "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/AppTask-dev*:*:*"
+                        }
+                      ]
+                    },
+                    {
+                      "Effect": "Allow",
+                      "Action": [
+                        "dynamodb:*"
+                      ],
+                      "Resource": "arn:aws:dynamodb:us-east-1:648908580448:table/examen_kevin"
+                    }
+                  ]
+                }
+              }
+            ],
+            "Path": "/",
+            "RoleName": {
+              "Fn::Join": [
+                "-",
+                [
+                  "AppTask",
+                  "dev",
+                  {
+                    "Ref": "AWS::Region"
+                  },
+                  "lambdaRole"
+                ]
+              ]
+            }
+          }
+        },
+        "AgregarRegistroLambdaFunction": {
+          "Type": "AWS::Lambda::Function",
+          "Properties": {
+            "Code": {
+              "S3Bucket": "serverless-framework-deployments-us-east-1-1c6f9a6f-8b98",
+              "S3Key": "serverless/AppTask/dev/1748609262480-2025-05-30T12:47:42.480Z/AppTask.zip"
+            },
+            "Handler": "src/agregarRegistro.agregarRegistro",
+            "Runtime": "nodejs20.x",
+            "FunctionName": "AppTask-dev-agregarRegistro",
+            "MemorySize": 1024,
+            "Timeout": 6,
+            "Role": {
+              "Fn::GetAtt": [
+                "IamRoleLambdaExecution",
+                "Arn"
+              ]
+            }
+          },
+          "DependsOn": [
+            "AgregarRegistroLogGroup"
+          ]
+        },
+        "ObtenerRegistrosLambdaFunction": {
+          "Type": "AWS::Lambda::Function",
+          "Properties": {
+            "Code": {
+              "S3Bucket": "serverless-framework-deployments-us-east-1-1c6f9a6f-8b98",
+              "S3Key": "serverless/AppTask/dev/1748609262480-2025-05-30T12:47:42.480Z/AppTask.zip"
+            },
+            "Handler": "src/obtenerRegistros.obtenerRegistros",
+            "Runtime": "nodejs20.x",
+            "FunctionName": "AppTask-dev-obtenerRegistros",
+            "MemorySize": 1024,
+            "Timeout": 6,
+            "Role": {
+              "Fn::GetAtt": [
+                "IamRoleLambdaExecution",
+                "Arn"
+              ]
+            }
+          },
+          "DependsOn": [
+            "ObtenerRegistrosLogGroup"
+          ]
+        },
+        "ObtenerRegistroIndividualLambdaFunction": {
+          "Type": "AWS::Lambda::Function",
+          "Properties": {
+            "Code": {
+              "S3Bucket": "serverless-framework-deployments-us-east-1-1c6f9a6f-8b98",
+              "S3Key": "serverless/AppTask/dev/1748609262480-2025-05-30T12:47:42.480Z/AppTask.zip"
+            },
+            "Handler": "src/obtenerRegistroIndividual.obtenerRegistroIndividual",
+            "Runtime": "nodejs20.x",
+            "FunctionName": "AppTask-dev-obtenerRegistroIndividual",
+            "MemorySize": 1024,
+            "Timeout": 6,
+            "Role": {
+              "Fn::GetAtt": [
+                "IamRoleLambdaExecution",
+                "Arn"
+              ]
+            }
+          },
+          "DependsOn": [
+            "ObtenerRegistroIndividualLogGroup"
+          ]
+        },
+        "ActualizarRegistroLambdaFunction": {
+          "Type": "AWS::Lambda::Function",
+          "Properties": {
+            "Code": {
+              "S3Bucket": "serverless-framework-deployments-us-east-1-1c6f9a6f-8b98",
+              "S3Key": "serverless/AppTask/dev/1748609262480-2025-05-30T12:47:42.480Z/AppTask.zip"
+            },
+            "Handler": "src/actualizarRegistro.actualizarRegistro",
+            "Runtime": "nodejs20.x",
+            "FunctionName": "AppTask-dev-actualizarRegistro",
+            "MemorySize": 1024,
+            "Timeout": 6,
+            "Role": {
+              "Fn::GetAtt": [
+                "IamRoleLambdaExecution",
+                "Arn"
+              ]
+            }
+          },
+          "DependsOn": [
+            "ActualizarRegistroLogGroup"
+          ]
+        },
+        "EliminarRegistroLambdaFunction": {
+          "Type": "AWS::Lambda::Function",
+          "Properties": {
+            "Code": {
+              "S3Bucket": "serverless-framework-deployments-us-east-1-1c6f9a6f-8b98",
+              "S3Key": "serverless/AppTask/dev/1748609262480-2025-05-30T12:47:42.480Z/AppTask.zip"
+            },
+            "Handler": "src/eliminarRegistro.eliminarRegistro",
+            "Runtime": "nodejs20.x",
+            "FunctionName": "AppTask-dev-eliminarRegistro",
+            "MemorySize": 1024,
+            "Timeout": 6,
+            "Role": {
+              "Fn::GetAtt": [
+                "IamRoleLambdaExecution",
+                "Arn"
+              ]
+            }
+          },
+          "DependsOn": [
+            "EliminarRegistroLogGroup"
+          ]
+        },
+        "AgregarRegistroLambdaVersionmtvFKQm3DUlDN8YrlKX2rho8TtjpzoRUl9EZ7QfImxM": {
+          "Type": "AWS::Lambda::Version",
+          "DeletionPolicy": "Retain",
+          "Properties": {
+            "FunctionName": {
+              "Ref": "AgregarRegistroLambdaFunction"
+            },
+            "CodeSha256": "k36LpphuUQ4osFkNI8n2rEuLZMqW1IRca5Q3eKaqQhk="
+          }
+        },
+        "ObtenerRegistrosLambdaVersionMi7OYdlsFaLQCd5KuLKqdajERO8CI4Inl0zx7Om90": {
+          "Type": "AWS::Lambda::Version",
+          "DeletionPolicy": "Retain",
+          "Properties": {
+            "FunctionName": {
+              "Ref": "ObtenerRegistrosLambdaFunction"
+            },
+            "CodeSha256": "k36LpphuUQ4osFkNI8n2rEuLZMqW1IRca5Q3eKaqQhk="
+          }
+        },
+        "ObtenerRegistroIndividualLambdaVersionjwEyKl0k7nliOBlQzccuVvjH7MKrzEk7GBIDYbtk": {
+          "Type": "AWS::Lambda::Version",
+          "DeletionPolicy": "Retain",
+          "Properties": {
+            "FunctionName": {
+              "Ref": "ObtenerRegistroIndividualLambdaFunction"
+            },
+            "CodeSha256": "k36LpphuUQ4osFkNI8n2rEuLZMqW1IRca5Q3eKaqQhk="
+          }
+        },
+        "ActualizarRegistroLambdaVersionS32X4jm3V0Y9nZvvE0TgPFe7RSUBle2M0giM9jqxLM": {
+          "Type": "AWS::Lambda::Version",
+          "DeletionPolicy": "Retain",
+          "Properties": {
+            "FunctionName": {
+              "Ref": "ActualizarRegistroLambdaFunction"
+            },
+            "CodeSha256": "k36LpphuUQ4osFkNI8n2rEuLZMqW1IRca5Q3eKaqQhk="
+          }
+        },
+        "EliminarRegistroLambdaVersionRWY5qRXOSse6vsDCMxxPozxxNh3URD9drafilZ5HM": {
+          "Type": "AWS::Lambda::Version",
+          "DeletionPolicy": "Retain",
+          "Properties": {
+            "FunctionName": {
+              "Ref": "EliminarRegistroLambdaFunction"
+            },
+            "CodeSha256": "k36LpphuUQ4osFkNI8n2rEuLZMqW1IRca5Q3eKaqQhk="
+          }
+        },
+        "HttpApi": {
+          "Type": "AWS::ApiGatewayV2::Api",
+          "Properties": {
+            "Name": "dev-AppTask",
+            "ProtocolType": "HTTP",
+            "CorsConfiguration": {
+              "AllowHeaders": [
+                "Content-Type",
+                "X-Amz-Date",
+                "Authorization",
+                "X-Api-Key",
+                "X-Amz-Security-Token",
+                "X-Amz-User-Agent",
+                "X-Amzn-Trace-Id"
+              ],
+              "AllowMethods": [
+                "OPTIONS",
+                "PUT",
+                "GET",
+                "DELETE"
+              ],
+              "AllowOrigins": [
+                "*"
+              ]
+            }
+          }
+        },
+        "HttpApiStage": {
+          "Type": "AWS::ApiGatewayV2::Stage",
+          "Properties": {
+            "ApiId": {
+              "Ref": "HttpApi"
+            },
+            "StageName": "$default",
+            "AutoDeploy": true,
+            "DefaultRouteSettings": {
+              "DetailedMetricsEnabled": false
+            }
+          }
+        },
+        "AgregarRegistroLambdaPermissionHttpApi": {
+          "Type": "AWS::Lambda::Permission",
+          "Properties": {
+            "FunctionName": {
+              "Fn::GetAtt": [
+                "AgregarRegistroLambdaFunction",
+                "Arn"
+              ]
+            },
+            "Action": "lambda:InvokeFunction",
+            "Principal": "apigateway.amazonaws.com",
+            "SourceArn": {
+              "Fn::Join": [
+                "",
+                [
+                  "arn:",
+                  {
+                    "Ref": "AWS::Partition"
+                  },
+                  ":execute-api:",
+                  {
+                    "Ref": "AWS::Region"
+                  },
+                  ":",
+                  {
+                    "Ref": "AWS::AccountId"
+                  },
+                  ":",
+                  {
+                    "Ref": "HttpApi"
+                  },
+                  "/*"
+                ]
+              ]
+            }
+          }
+        },
+        "HttpApiIntegrationAgregarRegistro": {
+          "Type": "AWS::ApiGatewayV2::Integration",
+          "Properties": {
+            "ApiId": {
+              "Ref": "HttpApi"
+            },
+            "IntegrationType": "AWS_PROXY",
+            "IntegrationUri": {
+              "Fn::GetAtt": [
+                "AgregarRegistroLambdaFunction",
+                "Arn"
+              ]
+            },
+            "PayloadFormatVersion": "2.0",
+            "TimeoutInMillis": 30000
+          }
+        },
+        "HttpApiRoutePutTarea": {
+          "Type": "AWS::ApiGatewayV2::Route",
+          "Properties": {
+            "ApiId": {
+              "Ref": "HttpApi"
+            },
+            "RouteKey": "PUT /tarea",
+            "Target": {
+              "Fn::Join": [
+                "/",
+                [
+                  "integrations",
+                  {
+                    "Ref": "HttpApiIntegrationAgregarRegistro"
+                  }
+                ]
+              ]
+            }
+          },
+          "DependsOn": "HttpApiIntegrationAgregarRegistro"
+        },
+        "ObtenerRegistrosLambdaPermissionHttpApi": {
+          "Type": "AWS::Lambda::Permission",
+          "Properties": {
+            "FunctionName": {
+              "Fn::GetAtt": [
+                "ObtenerRegistrosLambdaFunction",
+                "Arn"
+              ]
+            },
+            "Action": "lambda:InvokeFunction",
+            "Principal": "apigateway.amazonaws.com",
+            "SourceArn": {
+              "Fn::Join": [
+                "",
+                [
+                  "arn:",
+                  {
+                    "Ref": "AWS::Partition"
+                  },
+                  ":execute-api:",
+                  {
+                    "Ref": "AWS::Region"
+                  },
+                  ":",
+                  {
+                    "Ref": "AWS::AccountId"
+                  },
+                  ":",
+                  {
+                    "Ref": "HttpApi"
+                  },
+                  "/*"
+                ]
+              ]
+            }
+          }
+        },
+        "HttpApiIntegrationObtenerRegistros": {
+          "Type": "AWS::ApiGatewayV2::Integration",
+          "Properties": {
+            "ApiId": {
+              "Ref": "HttpApi"
+            },
+            "IntegrationType": "AWS_PROXY",
+            "IntegrationUri": {
+              "Fn::GetAtt": [
+                "ObtenerRegistrosLambdaFunction",
+                "Arn"
+              ]
+            },
+            "PayloadFormatVersion": "2.0",
+            "TimeoutInMillis": 30000
+          }
+        },
+        "HttpApiRouteGetTareas": {
+          "Type": "AWS::ApiGatewayV2::Route",
+          "Properties": {
+            "ApiId": {
+              "Ref": "HttpApi"
+            },
+            "RouteKey": "GET /tareas",
+            "Target": {
+              "Fn::Join": [
+                "/",
+                [
+                  "integrations",
+                  {
+                    "Ref": "HttpApiIntegrationObtenerRegistros"
+                  }
+                ]
+              ]
+            }
+          },
+          "DependsOn": "HttpApiIntegrationObtenerRegistros"
+        },
+        "ObtenerRegistroIndividualLambdaPermissionHttpApi": {
+          "Type": "AWS::Lambda::Permission",
+          "Properties": {
+            "FunctionName": {
+              "Fn::GetAtt": [
+                "ObtenerRegistroIndividualLambdaFunction",
+                "Arn"
+              ]
+            },
+            "Action": "lambda:InvokeFunction",
+            "Principal": "apigateway.amazonaws.com",
+            "SourceArn": {
+              "Fn::Join": [
+                "",
+                [
+                  "arn:",
+                  {
+                    "Ref": "AWS::Partition"
+                  },
+                  ":execute-api:",
+                  {
+                    "Ref": "AWS::Region"
+                  },
+                  ":",
+                  {
+                    "Ref": "AWS::AccountId"
+                  },
+                  ":",
+                  {
+                    "Ref": "HttpApi"
+                  },
+                  "/*"
+                ]
+              ]
+            }
+          }
+        },
+        "HttpApiIntegrationObtenerRegistroIndividual": {
+          "Type": "AWS::ApiGatewayV2::Integration",
+          "Properties": {
+            "ApiId": {
+              "Ref": "HttpApi"
+            },
+            "IntegrationType": "AWS_PROXY",
+            "IntegrationUri": {
+              "Fn::GetAtt": [
+                "ObtenerRegistroIndividualLambdaFunction",
+                "Arn"
+              ]
+            },
+            "PayloadFormatVersion": "2.0",
+            "TimeoutInMillis": 30000
+          }
+        },
+        "HttpApiRouteGetTareasIdVar": {
+          "Type": "AWS::ApiGatewayV2::Route",
+          "Properties": {
+            "ApiId": {
+              "Ref": "HttpApi"
+            },
+            "RouteKey": "GET /tareas/{id}",
+            "Target": {
+              "Fn::Join": [
+                "/",
+                [
+                  "integrations",
+                  {
+                    "Ref": "HttpApiIntegrationObtenerRegistroIndividual"
+                  }
+                ]
+              ]
+            }
+          },
+          "DependsOn": "HttpApiIntegrationObtenerRegistroIndividual"
+        },
+        "ActualizarRegistroLambdaPermissionHttpApi": {
+          "Type": "AWS::Lambda::Permission",
+          "Properties": {
+            "FunctionName": {
+              "Fn::GetAtt": [
+                "ActualizarRegistroLambdaFunction",
+                "Arn"
+              ]
+            },
+            "Action": "lambda:InvokeFunction",
+            "Principal": "apigateway.amazonaws.com",
+            "SourceArn": {
+              "Fn::Join": [
+                "",
+                [
+                  "arn:",
+                  {
+                    "Ref": "AWS::Partition"
+                  },
+                  ":execute-api:",
+                  {
+                    "Ref": "AWS::Region"
+                  },
+                  ":",
+                  {
+                    "Ref": "AWS::AccountId"
+                  },
+                  ":",
+                  {
+                    "Ref": "HttpApi"
+                  },
+                  "/*"
+                ]
+              ]
+            }
+          }
+        },
+        "HttpApiIntegrationActualizarRegistro": {
+          "Type": "AWS::ApiGatewayV2::Integration",
+          "Properties": {
+            "ApiId": {
+              "Ref": "HttpApi"
+            },
+            "IntegrationType": "AWS_PROXY",
+            "IntegrationUri": {
+              "Fn::GetAtt": [
+                "ActualizarRegistroLambdaFunction",
+                "Arn"
+              ]
+            },
+            "PayloadFormatVersion": "2.0",
+            "TimeoutInMillis": 30000
+          }
+        },
+        "HttpApiRoutePutTareasIdVar": {
+          "Type": "AWS::ApiGatewayV2::Route",
+          "Properties": {
+            "ApiId": {
+              "Ref": "HttpApi"
+            },
+            "RouteKey": "PUT /tareas/{id}",
+            "Target": {
+              "Fn::Join": [
+                "/",
+                [
+                  "integrations",
+                  {
+                    "Ref": "HttpApiIntegrationActualizarRegistro"
+                  }
+                ]
+              ]
+            }
+          },
+          "DependsOn": "HttpApiIntegrationActualizarRegistro"
+        },
+        "EliminarRegistroLambdaPermissionHttpApi": {
+          "Type": "AWS::Lambda::Permission",
+          "Properties": {
+            "FunctionName": {
+              "Fn::GetAtt": [
+                "EliminarRegistroLambdaFunction",
+                "Arn"
+              ]
+            },
+            "Action": "lambda:InvokeFunction",
+            "Principal": "apigateway.amazonaws.com",
+            "SourceArn": {
+              "Fn::Join": [
+                "",
+                [
+                  "arn:",
+                  {
+                    "Ref": "AWS::Partition"
+                  },
+                  ":execute-api:",
+                  {
+                    "Ref": "AWS::Region"
+                  },
+                  ":",
+                  {
+                    "Ref": "AWS::AccountId"
+                  },
+                  ":",
+                  {
+                    "Ref": "HttpApi"
+                  },
+                  "/*"
+                ]
+              ]
+            }
+          }
+        },
+        "HttpApiIntegrationEliminarRegistro": {
+          "Type": "AWS::ApiGatewayV2::Integration",
+          "Properties": {
+            "ApiId": {
+              "Ref": "HttpApi"
+            },
+            "IntegrationType": "AWS_PROXY",
+            "IntegrationUri": {
+              "Fn::GetAtt": [
+                "EliminarRegistroLambdaFunction",
+                "Arn"
+              ]
+            },
+            "PayloadFormatVersion": "2.0",
+            "TimeoutInMillis": 30000
+          }
+        },
+        "HttpApiRouteDeleteTareaIdVar": {
+          "Type": "AWS::ApiGatewayV2::Route",
+          "Properties": {
+            "ApiId": {
+              "Ref": "HttpApi"
+            },
+            "RouteKey": "DELETE /tarea/{id}",
+            "Target": {
+              "Fn::Join": [
+                "/",
+                [
+                  "integrations",
+                  {
+                    "Ref": "HttpApiIntegrationEliminarRegistro"
+                  }
+                ]
+              ]
+            }
+          },
+          "DependsOn": "HttpApiIntegrationEliminarRegistro"
+        },
+        "ExamenKevinTable": {
+          "Type": "AWS::DynamoDB::Table",
+          "Properties": {
+            "TableName": "examen_kevin",
+            "BillingMode": "PAY_PER_REQUEST",
+            "AttributeDefinitions": [
+              {
+                "AttributeName": "id",
+                "AttributeType": "S"
+              }
+            ],
+            "KeySchema": [
+              {
+                "AttributeName": "id",
+                "KeyType": "HASH"
+              }
+            ]
+          }
+        }
+      },
+      "Outputs": {
+        "ServerlessDeploymentBucketName": {
+          "Value": "serverless-framework-deployments-us-east-1-1c6f9a6f-8b98",
+          "Export": {
+            "Name": "sls-AppTask-dev-ServerlessDeploymentBucketName"
+          }
+        },
+        "AgregarRegistroLambdaFunctionQualifiedArn": {
+          "Description": "Current Lambda function version",
+          "Value": {
+            "Ref": "AgregarRegistroLambdaVersionmtvFKQm3DUlDN8YrlKX2rho8TtjpzoRUl9EZ7QfImxM"
+          },
+          "Export": {
+            "Name": "sls-AppTask-dev-AgregarRegistroLambdaFunctionQualifiedArn"
+          }
+        },
+        "ObtenerRegistrosLambdaFunctionQualifiedArn": {
+          "Description": "Current Lambda function version",
+          "Value": {
+            "Ref": "ObtenerRegistrosLambdaVersionMi7OYdlsFaLQCd5KuLKqdajERO8CI4Inl0zx7Om90"
+          },
+          "Export": {
+            "Name": "sls-AppTask-dev-ObtenerRegistrosLambdaFunctionQualifiedArn"
+          }
+        },
+        "ObtenerRegistroIndividualLambdaFunctionQualifiedArn": {
+          "Description": "Current Lambda function version",
+          "Value": {
+            "Ref": "ObtenerRegistroIndividualLambdaVersionjwEyKl0k7nliOBlQzccuVvjH7MKrzEk7GBIDYbtk"
+          },
+          "Export": {
+            "Name": "sls-AppTask-dev-ObtenerRegistroIndividualLambdaFunctionQualifiedArn"
+          }
+        },
+        "ActualizarRegistroLambdaFunctionQualifiedArn": {
+          "Description": "Current Lambda function version",
+          "Value": {
+            "Ref": "ActualizarRegistroLambdaVersionS32X4jm3V0Y9nZvvE0TgPFe7RSUBle2M0giM9jqxLM"
+          },
+          "Export": {
+            "Name": "sls-AppTask-dev-ActualizarRegistroLambdaFunctionQualifiedArn"
+          }
+        },
+        "EliminarRegistroLambdaFunctionQualifiedArn": {
+          "Description": "Current Lambda function version",
+          "Value": {
+            "Ref": "EliminarRegistroLambdaVersionRWY5qRXOSse6vsDCMxxPozxxNh3URD9drafilZ5HM"
+          },
+          "Export": {
+            "Name": "sls-AppTask-dev-EliminarRegistroLambdaFunctionQualifiedArn"
+          }
+        },
+        "HttpApiId": {
+          "Description": "Id of the HTTP API",
+          "Value": {
+            "Ref": "HttpApi"
+          },
+          "Export": {
+            "Name": "sls-AppTask-dev-HttpApiId"
+          }
+        },
+        "HttpApiUrl": {
+          "Description": "URL of the HTTP API",
+          "Value": {
+            "Fn::Join": [
+              "",
+              [
+                "https://",
+                {
+                  "Ref": "HttpApi"
+                },
+                ".execute-api.",
+                {
+                  "Ref": "AWS::Region"
+                },
+                ".",
+                {
+                  "Ref": "AWS::URLSuffix"
+                }
+              ]
+            ]
+          },
+          "Export": {
+            "Name": "sls-AppTask-dev-HttpApiUrl"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Qbin Company</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+      body {
+        background-color: #f8f9fa;
+      }
+      .card {
+        box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+        border: none;
+        margin-bottom: 1rem;
+      }
+      .btn-primary {
+        background-color: #0d6efd;
+        border: none;
+        padding: 0.5rem 2rem;
+      }
+      .btn-primary:hover {
+        background-color: #0b5ed7;
+      }
+      .form-control:focus, .form-select:focus {
+        border-color: #0d6efd;
+        box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+      }
+      .list-group-item {
+        transition: all 0.3s ease;
+      }
+      .list-group-item:hover {
+        background-color: #f8f9fa;
+      }
+    </style>
+  </head>
+  <body class="container py-5">
+    <div class="row justify-content-center">
+      <div class="col-lg-10">
+        <div class="card mb-4">
+          <div class="card-body">
+            <h1 class="text-center mb-4 text-primary">Registro Estudiantil</h1>
+
+            <form id="taskForm" class="row g-3">
+              <div class="col-md-6">
+                <label for="nombre" class="form-label">Nombre</label>
+                <input type="text" class="form-control" id="nombre" placeholder="Ingrese el nombre" required />
+              </div>
+              <div class="col-md-6">
+                <label for="fechaNacimiento" class="form-label">Fecha de Nacimiento</label>
+                <input type="date" class="form-control" id="fechaNacimiento" required />
+              </div>
+              <div class="col-md-6">
+                <label for="numeroCedula" class="form-label">Número de Cédula</label>
+                <input type="text" class="form-control" id="numeroCedula" placeholder="Ingrese el número de cédula" required />
+              </div>
+              <div class="col-md-6">
+                <label for="ciudadNacimiento" class="form-label">Ciudad de Nacimiento</label>
+                <input type="text" class="form-control" id="ciudadNacimiento" placeholder="Ingrese la ciudad" required />
+              </div>
+              <div class="col-md-6">
+                <label for="pais" class="form-label">País</label>
+                <input type="text" class="form-control" id="pais" placeholder="Ingrese el país" required />
+              </div>
+              <div class="col-md-6">
+                <label for="sexo" class="form-label">Sexo</label>
+                <select class="form-select" id="sexo" required>
+                  <option value="">Seleccione sexo</option>
+                  <option value="Hombre">Hombre</option>
+                  <option value="Mujer">Mujer</option>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label for="tipoSangre" class="form-label">Tipo de Sangre</label>
+                <input type="text" class="form-control" id="tipoSangre" placeholder="Ingrese el tipo de sangre" required />
+              </div>
+              <div class="col-12 text-center mt-4">
+                <button type="submit" class="btn btn-primary">
+                  <i class="bi bi-person-plus-fill me-2"></i>Agregar Persona
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-body">
+            <h2 class="card-title mb-4 text-primary">Lista de Registros</h2>
+            <ul id="tasksList" class="list-group"></ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      const apiBaseUrl =
+        "https://uftf3ytoc7.execute-api.us-east-1.amazonaws.com";
+
+      async function obtenerRegistros() {
+        try {
+          const response = await fetch(`${apiBaseUrl}/tareas`);
+          const data = await response.json();
+          const tasksList = document.getElementById("tasksList");
+          tasksList.innerHTML = "";
+
+          data.data.forEach((task) => {
+            const taskElement = document.createElement("li");
+            taskElement.className = "list-group-item d-flex justify-content-between align-items-center";
+            taskElement.innerHTML = `
+            <div class="task-info">
+              <h5 class="mb-1">${task.nombre}</h5>
+              <p class="mb-1 text-muted">Cédula: ${task.numeroCedula}</p>
+              <p class="mb-1">Fecha de Nacimiento: ${task.fechaNacimiento}</p>
+              <p class="mb-1">Ciudad: ${task.ciudadNacimiento}, País: ${task.pais}</p>
+              <p class="mb-0">Sexo: ${task.sexo}, Tipo de Sangre: ${task.tipoSangre}</p>
+            </div>
+            <div class="ms-3">
+              <button class="btn btn-warning btn-sm me-2" onclick="editarTask('${task.id}', '${task.nombre}', '${task.fechaNacimiento}', '${task.numeroCedula}', '${task.ciudadNacimiento}', '${task.pais}', '${task.sexo}', '${task.tipoSangre}')">
+                <i class="bi bi-pencil-fill"></i> Editar
+              </button>
+              <button class="btn btn-danger btn-sm" onclick="eliminarTask('${task.id}')">
+                <i class="bi bi-trash-fill"></i> Eliminar
+              </button>
+            </div>
+          `;
+            tasksList.appendChild(taskElement);
+          });
+        } catch (error) {
+          alert("Error al obtener personas: " + error.message);
+        }
+      }
+
+      document
+        .getElementById("taskForm")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const nombre = document.getElementById("nombre").value;
+          const fechaNacimiento = document.getElementById("fechaNacimiento").value;
+          const numeroCedula = document.getElementById("numeroCedula").value;
+          const ciudadNacimiento = document.getElementById("ciudadNacimiento").value;
+          const pais = document.getElementById("pais").value;
+          const sexo = document.getElementById("sexo").value;
+          const tipoSangre = document.getElementById("tipoSangre").value;
+
+          try {
+            const response = await fetch(`${apiBaseUrl}/tarea`, {
+              method: "PUT",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ nombre, fechaNacimiento, numeroCedula, ciudadNacimiento, pais, sexo, tipoSangre }),
+            });
+
+            const data = await response.json();
+            if (data.message.includes("éxito")) {
+              obtenerRegistros();
+              e.target.reset();
+            } else {
+              alert("Error al agregar persona");
+            }
+          } catch (error) {
+            alert("Error al agregar persona: " + error.message);
+          }
+        });
+
+      async function eliminarTask(id) {
+        if (!confirm("¿Estás seguro de eliminar esta persona?")) return;
+
+        try {
+          const response = await fetch(`${apiBaseUrl}/tarea/${id}`, {
+            method: "DELETE",
+          });
+          const data = await response.json();
+          if (data.message.includes("eliminada")) {
+            obtenerRegistros();
+          } else {
+            alert("Error al eliminar persona");
+          }
+        } catch (error) {
+          alert("Error al eliminar persona: " + error.message);
+        }
+      }
+
+      async function editarTask(id, nombre, fechaNacimiento, numeroCedula, ciudadNacimiento, pais, sexo, tipoSangre) {
+        const nuevoNombre = prompt("Nuevo nombre:", nombre);
+        const nuevaFechaNacimiento = prompt("Nueva fecha de nacimiento:", fechaNacimiento);
+        const nuevoNumeroCedula = prompt("Nuevo número de cédula:", numeroCedula);
+        const nuevaCiudadNacimiento = prompt("Nueva ciudad de nacimiento:", ciudadNacimiento);
+        const nuevoPais = prompt("Nuevo país:", pais);
+        const nuevoSexo = prompt("Nuevo sexo (Hombre/Mujer):", sexo);
+        const nuevoTipoSangre = prompt("Nuevo tipo de sangre:", tipoSangre);
+
+        if (!nuevoNombre || !nuevaFechaNacimiento || !nuevoNumeroCedula || !nuevaCiudadNacimiento || !nuevoPais || !nuevoSexo || !nuevoTipoSangre) {
+          alert("Todos los campos son obligatorios");
+          return;
+        }
+        try {
+          const response = await fetch(`${apiBaseUrl}/tareas/${id}`, {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              nombre: nuevoNombre,
+              fechaNacimiento: nuevaFechaNacimiento,
+              numeroCedula: nuevoNumeroCedula,
+              ciudadNacimiento: nuevaCiudadNacimiento,
+              pais: nuevoPais,
+              sexo: nuevoSexo,
+              tipoSangre: nuevoTipoSangre
+            }),
+          });
+
+          const data = await response.json();
+          if (data.message.includes("actualizada")) {
+            obtenerRegistros();
+          } else {
+            alert("Error al actualizar persona");
+          }
+        } catch (error) {
+          alert("Error al actualizar persona: " + error.message);
+        }
+      }
+
+      document.addEventListener("DOMContentLoaded", obtenerRegistros);
+    </script>
+  </body>
+</html>

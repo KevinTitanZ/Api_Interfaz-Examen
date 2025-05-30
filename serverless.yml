@@ -1,0 +1,63 @@
+service: AppTask
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  httpApi:
+    cors: true
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:*
+      Resource:
+        - arn:aws:dynamodb:us-east-1:648908580448:table/examen_kevin
+
+functions:
+
+  agregarRegistro:
+    handler: src/agregarRegistro.agregarRegistro
+    events:
+      - httpApi:
+          path: /tarea
+          method: put
+
+  obtenerRegistros:
+    handler: src/obtenerRegistros.obtenerRegistros
+    events:
+      - httpApi:
+          path: /tareas
+          method: get
+
+  obtenerRegistroIndividual:
+    handler: src/obtenerRegistroIndividual.obtenerRegistroIndividual
+    events:
+      - httpApi:
+          path: /tareas/{id}
+          method: get
+
+  actualizarRegistro:
+    handler: src/actualizarRegistro.actualizarRegistro
+    events:
+      - httpApi:
+          path: /tareas/{id}
+          method: put
+  eliminarRegistro:
+    handler: src/eliminarRegistro.eliminarRegistro
+    events:
+      - httpApi:
+          path: /tarea/{id}
+          method: delete
+
+resources:
+  Resources:
+    ExamenKevinTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: examen_kevin
+        BillingMode: PAY_PER_REQUEST
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
